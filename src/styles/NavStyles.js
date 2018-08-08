@@ -36,28 +36,30 @@ export const NavBody = styled.div`
 
 export const NavControlButton = styled.button`
   margin: 0;
-  padding: 10px;
+  padding: 3px 5px;
   display: inline-block;
   text-decoration: none;
   background: white;
   outline: none;
   font-size: 1.2em;
-
+  cursor: pointer;
   border: 1px solid transparent;
-
-  transition: background 250ms ease-in-out, transform 150ms ease;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  :hover {
-    background: #ff731c;
-  }
 `
 
 export const NavRow = styled.div`
-  font-size: 1.1em;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-right: 6px;
   margin: 4px 0;
+`
+
+export const NavRowGroup = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`
+
+export const NavRowText = styled.p`
+  margin: 0;
 `
