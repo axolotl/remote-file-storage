@@ -31,7 +31,7 @@ export const NavControls = styled.div`
 `
 
 export const NavBody = styled.div`
-
+  display: block;
 `
 
 export const NavControlButton = styled.button`

@@ -7,6 +7,7 @@ import { Text } from '../styles/TextStyles'
 // import components
 //import StateUpdater from './StateUpdater'
 import Nav from './Nav'
+import FileSystem from './FileSystem'
 
 const Content = () => (
   <OuterContainer>
@@ -14,7 +15,8 @@ const Content = () => (
       <Text>
         Explanation of how this all works here.
       </Text>
-      <Nav />
+    {/*<Nav />*/}
+    <FileSystem />
     </InnerContainer>
   </OuterContainer>
 )
