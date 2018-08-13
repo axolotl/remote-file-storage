@@ -8,3 +8,8 @@ export const doubleState = () => (dispatch, getState) => {
   const { displayedState } = getState()
   dispatch(updateState(displayedState + displayedState))
 }
+
+export const toggleDir = id => ({
+  type: 'TOGGLE_DIR',
+  id
+})
