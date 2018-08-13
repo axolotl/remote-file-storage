@@ -108,8 +108,28 @@ const dir = (state = mockState, action) => {
   }
 }
 
+const selected = (state = '', action) => {
+  switch (action.type) {
+    case 'SELECT_ITEM':
+      return action.id
+    default:
+      return state
+  }
+}
+
+const inputOption = (state = '', action) => {
+  switch (action.type) {
+    case 'SET_INPUT_OPTION':
+      return action.option 
+    default:
+      return state
+  }
+}
+
 const AppState = combineReducers({
-  dir
+  dir,
+  selected,
+  inputOption
 })
 
 export default AppState

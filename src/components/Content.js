@@ -10,7 +10,6 @@ import FileSystem from './FileSystem'
 const Content = () => (
   <OuterContainer>
     <InnerContainer>
-      <Text>Explanation of how this all works here.</Text>
       <FileSystem />
     </InnerContainer>
   </OuterContainer>

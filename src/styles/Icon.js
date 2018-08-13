@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Icon = styled.div`
+const Icon = styled.span`
   margin: 0;
   padding-right: 5px;
   border: none;

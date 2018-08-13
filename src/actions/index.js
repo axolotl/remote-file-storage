@@ -13,3 +13,13 @@ export const toggleDir = id => ({
   type: 'TOGGLE_DIR',
   id
 })
+
+export const selectItem = id => ({
+  type: 'SELECT_ITEM',
+  id
+})
+
+export const setInputOption = option => ({
+  type: 'SET_INPUT_OPTION',
+  option
+})
