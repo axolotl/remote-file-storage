@@ -20,67 +20,38 @@ import NewFolder from '../icons/NewFolder'
 
 // import components
 import RecurseFolder from './RecurseFolder'
+import InputField from './InputField'
 
 const mapStateToProps = state => ({
-  dir: state.dir,
-  selected: state.selected,
-  inputOption: state.inputOption
+  inputFields: state.inputFields
 })
 
 const mapDispachToProps = dispatch =>
   bindActionCreators(actionCreators, dispatch)
 
-const FileSystem = ({
-  dir,
-  toggleDir,
-  selected,
-  selectItem,
-  inputOption,
-  setInputOption
-}) => (
+const FileSystem = ({ inputFields, addInputField }) => (
   <UL inner={false}>
     <LI header>
       <Group>Files and Folders</Group>
+
       <Group>
         <Options>
-          <Option onClick={() => setInputOption('newfile')}>
+          <Option onClick={() => addInputField('base', 'newfile')}>
             <NewFile />
           </Option>
-          <Option onClick={() => setInputOption('newfolder')}>
+          <Option onClick={() => addInputField('base', 'newfolder')}>
             <NewFolder />
           </Option>
         </Options>
       </Group>
+
       <Group>Last modified | Size</Group>
     </LI>
 
-    {inputOption === 'newfile' && (
-      <LI input>
-        <input
-          ref={ref => {
-            this.uploadInput = ref
-          }}
-          type="file"
-        />
-        <Option onClick={() => setInputOption('')}>Cancel</Option>
-      </LI>
-    )}
-
-    {inputOption === 'newfolder' && (
-      <LI input>
-        <span>Create new folder at /: </span>
-        <input type="text" />
-        <Option onClick={() => setInputOption('')}>Cancel</Option>
-      </LI>
-    )}
+    <InputField head id='base' addInputField={addInputField} inputFields={inputFields}/>
 
     <HorizonalRule />
-    <RecurseFolder
-      folder={dir}
-      toggle={toggleDir}
-      selected={selected}
-      select={selectItem}
-    />
+    <RecurseFolder />
   </UL>
 )
 

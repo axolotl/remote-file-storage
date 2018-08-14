@@ -1,9 +1,9 @@
 import React from 'react'
 import { Options, Option } from '../styles/FileSystemStyles'
 
-const FolderOptions = ({ open, id, toggle }) => (
+const FolderOptions = ({ open, id, toggleDir }) => (
   <Options>
-    <Option onClick={() => toggle(id)}>{open ? 'Close' : 'Open'}</Option>
+    <Option onClick={() => toggleDir(id)}>{open ? 'Close' : 'Open'}</Option>
     <Option onClick={() => console.log('rename clicked on ' + id)}>
       Rename
     </Option>

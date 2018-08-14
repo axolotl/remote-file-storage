@@ -1,4 +1,7 @@
 import React, { Fragment } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as actionCreators from '../actions'
 import uuid from 'uuid'
 
 // import styles
@@ -21,16 +24,33 @@ import NewFolder from '../icons/NewFolder'
 // import components
 import FileOptions from './FileOptions'
 import FolderOptions from './FolderOptions'
+import InputField from './InputField'
 
-const RecurseFolder = ({ inner = false, folder, toggle, selected, select }) => (
-  // map over folder, if file render
-  // if file, render name recurse into dir
+const mapStateToProps = state => ({
+  folder: state.dir,
+  selected: state.selected,
+  inputOption: state.inputOption,
+  inputFields: state.inputFields
+})
+
+const mapDispachToProps = dispatch =>
+  bindActionCreators(actionCreators, dispatch)
+
+const RecurseFolder = ({
+  inner = false,
+  folder,
+  toggleDir,
+  selected,
+  selectItem,
+  addInputField,
+  inputFields
+}) => (
   <UL inner={inner}>
     {folder.map(
       (item, i) =>
         item.type === 'file' ? (
           <LI
-            onClick={() => select(item.id)}
+            onClick={() => selectItem(item.id)}
             key={uuid()}
             selected={item.id === selected}
           >
@@ -39,22 +59,20 @@ const RecurseFolder = ({ inner = false, folder, toggle, selected, select }) => (
               {item.name}
               {item.id === selected && <FileOptions id={item.id} />}
             </Group>
-            <Group>never | 0mb</Group>
+            <Group>never | 0 mb</Group>
           </LI>
         ) : (
           <Fragment key={uuid()}>
             <LI
-              onClick={() => {
-                select(item.id)
-              }}
+              onClick={() => selectItem(item.id)}
               selected={item.id === selected}
             >
               <Group primary>
                 <Group
                   onClick={() => {
-                    select(item.id)
+                    selectItem(item.id)
                     if (item.id === selected) {
-                      toggle(item.id)
+                      toggleDir(item.id)
                     }
                   }}
                 >
@@ -66,31 +84,43 @@ const RecurseFolder = ({ inner = false, folder, toggle, selected, select }) => (
                     <FolderOptions
                       open={item.open}
                       id={item.id}
-                      toggle={toggle}
+                      toggleDir={toggleDir}
                     />
 
                     <Options>
-                      <Option onClick={() => console.log('newfile')}>
+                      <Option onClick={() => addInputField(item.id, 'newfile')}>
                         <NewFile />
                       </Option>
-                      <Option onClick={() => console.log('newfolder')}>
+                      <Option
+                        onClick={() => addInputField(item.id, 'newfolder')}
+                      >
                         <NewFolder />
                       </Option>
                     </Options>
                   </Fragment>
                 )}
               </Group>
-              <Group>never | 0mb</Group>
+              <Group>never | 0 mb</Group>
             </LI>
+
+            <UL inner>
+              <InputField
+                id={item.id}
+                addInputField={addInputField}
+                inputFields={inputFields}
+              />
+            </UL>
 
             {item.open &&
               (item.contents.length > 0 ? (
                 <RecurseFolder
                   inner={true}
                   folder={item.contents}
-                  toggle={toggle}
+                  toggleDir={toggleDir}
                   selected={selected}
-                  select={select}
+                  selectItem={selectItem}
+                  addInputField={addInputField}
+                  inputFields={inputFields}
                 />
               ) : (
                 <UL inner={inner}>
@@ -103,4 +133,7 @@ const RecurseFolder = ({ inner = false, folder, toggle, selected, select }) => (
   </UL>
 )
 
-export default RecurseFolder
+export default connect(
+  mapStateToProps,
+  mapDispachToProps
+)(RecurseFolder)

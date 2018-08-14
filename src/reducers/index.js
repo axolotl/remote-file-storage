@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import copyObject from '../utils/copyObject'
 
-// what do we need? 
+// what do we need?
 // we need to store the state that will render the whole directory
 // we also need to produce some methods for being able to update that state
 // we need to:
@@ -49,24 +49,13 @@ const selected = (state = '', action) => {
   }
 }
 
-const inputOption = (state = '', action) => {
-  switch (action.type) {
-    case 'SET_INPUT_OPTION':
-      return action.option 
-    default:
-      return state
-  }
-}
-
-const inputFields = (state = [], action) => {
+const inputFields = (state = {}, action) => {
   switch (action.type) {
     case 'ADD_INPUT_FIELD':
-      return [...state, action.newInputField]
+      return { ...state, [action.field]: action.selection }
     case 'REMOVE_INPUT_FIELD':
-      // remove that whole entry from the 
-    case 'UPDATE_INPUT_FIELD':
-      // modify part of the entry
-    default: 
+      return { ...state, [action.field]: false }
+    default:
       return state
   }
 }
@@ -74,7 +63,7 @@ const inputFields = (state = [], action) => {
 const AppState = combineReducers({
   dir,
   selected,
-  inputOption
+  inputFields
 })
 
 export default AppState

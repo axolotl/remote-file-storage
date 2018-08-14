@@ -8,7 +8,12 @@ export const UL = styled.ul`
 export const LI = styled.li`
   display: flex;
   align-items: center;
-  justify-content: ${props => props.input ? 'center' : 'space-between'};
+  justify-content: ${props => {
+    if (props.input && props.head) { return 'center' }
+    else if (props.input) { return 'flex-start' }
+    else { return 'space-between' }
+  }};
+
   padding-right: 3px;
   color: ${props => props.inactive ? 'grey' : 'black'};
   margin-left: ${props => props.header ? '5px' : 0};
