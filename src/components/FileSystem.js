@@ -15,11 +15,11 @@ import {
 } from '../styles/FileSystemStyles'
 
 // import icons
-import Folder from '../icons/Folder'
-import OpenFolder from '../icons/OpenFolder'
-import File from '../icons/File'
 import NewFile from '../icons/FileUpload'
 import NewFolder from '../icons/NewFolder'
+
+// import components
+import RecurseFolder from './RecurseFolder'
 
 const mapStateToProps = state => ({
   dir: state.dir,
@@ -29,100 +29,6 @@ const mapStateToProps = state => ({
 
 const mapDispachToProps = dispatch =>
   bindActionCreators(actionCreators, dispatch)
-
-const FileOptions = ({ id }) => (
-  <Options>
-    <Option onClick={() => console.log('download clicked on ' + id)}>
-      Download
-    </Option>
-    <Option onClick={() => console.log('rename clicked on ' + id)}>
-      Rename
-    </Option>
-    <Option onClick={() => console.log('delete clicked on ' + id)}>
-      Delete
-    </Option>
-  </Options>
-)
-
-const FolderOptions = ({ open, id, toggle }) => (
-  <Options>
-    <Option onClick={() => toggle(id)}>{open ? 'Close' : 'Open'}</Option>
-    <Option onClick={() => console.log('rename clicked on ' + id)}>
-      Rename
-    </Option>
-    <Option onClick={() => console.log('delete clicked ' + id)}>Delete</Option>
-  </Options>
-)
-
-const RecurseFolder = ({ inner = false, folder, toggle, selected, select }) => (
-  // map over folder, if file render
-  // if file, render name recurse into dir
-  <UL inner={inner}>
-    {folder.map(
-      (item, i) =>
-        item.type === 'file' ? (
-          <LI
-            onClick={() => select(item.id)}
-            key={uuid()}
-            selected={item.id === selected}
-          >
-            <Group primary>
-              <File />
-              {item.name}
-              {item.id === selected && <FileOptions id={item.id} />}
-            </Group>
-            <Group>never | 0mb</Group>
-          </LI>
-        ) : (
-          <Fragment key={uuid()}>
-            <LI
-              onClick={() => {
-                select(item.id)
-              }}
-              selected={item.id === selected}
-            >
-              <Group primary>
-                <Group
-                  onClick={() => {
-                    select(item.id)
-                    if (item.id === selected) {
-                      toggle(item.id)
-                    }
-                  }}
-                >
-                  {item.open ? <OpenFolder /> : <Folder />}
-                  {item.name}
-                </Group>
-                {item.id === selected && (
-                  <FolderOptions
-                    open={item.open}
-                    id={item.id}
-                    toggle={toggle}
-                  />
-                )}
-              </Group>
-              <Group>never | 0mb</Group>
-            </LI>
-
-            {item.open &&
-              (item.contents.length > 0 ? (
-                <RecurseFolder
-                  inner={true}
-                  folder={item.contents}
-                  toggle={toggle}
-                  selected={selected}
-                  select={select}
-                />
-              ) : (
-                <UL inner={inner}>
-                  <LI inactive>Folder is empty</LI>
-                </UL>
-              ))}
-          </Fragment>
-        )
-    )}
-  </UL>
-)
 
 const FileSystem = ({
   dir,

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import uuid from 'uuid'
+import copyObject from '../utils/copyObject'
 
 // what do we need? 
 // we need to store the state that will render the whole directory
@@ -8,79 +8,11 @@ import uuid from 'uuid'
 // load contents from new folders
 // add new files and new folders
 
-const mockState = [
-  {
-    type: 'file',
-    name: 'test',
-    id: uuid()
-  },
-  {
-    type: 'file',
-    name: 'test2',
-    id: uuid()
-  },
-  {
-    type: 'file',
-    name: 'test3',
-    id: uuid()
-  },
-  {
-    type: 'folder',
-    name: 'test_folder',
-    id: uuid(),
-    open: false,
-    contents: [
-      {
-        type: 'file',
-        name: 'test',
-        id: uuid()
-      },
-      {
-        type: 'folder',
-        name: 'nested_folder',
-        id: uuid(),
-        open: false,
-        contents: []
-      }
-    ]
-  },
-  {
-    type: 'folder',
-    name: 'test_folder2',
-    id: uuid(),
-    open: false,
-    contents: [
-      {
-        type: 'file',
-        name: 'test',
-        id: uuid()
-      },
-      {
-        type: 'folder',
-        name: 'nested_folder',
-        id: uuid(),
-        open: false,
-        contents: [
-          {
-            type: 'file',
-            name: 'test',
-            id: uuid()
-          },
-          {
-            type: 'folder',
-            name: 'nested_folder',
-            id: uuid(),
-            open: false,
-            contents: []
-          }
-        ]
-      }
-    ]
-  }
-]
+// import mock state
+import { mockState } from './mockState'
 
 const toggleDir = (id, state) => {
-  let newState = JSON.parse(JSON.stringify(state))
+  let newState = copyObject(state)
 
   const toggleRecursively = (id, folder) => {
     folder.forEach((item, i) => {
@@ -122,6 +54,19 @@ const inputOption = (state = '', action) => {
     case 'SET_INPUT_OPTION':
       return action.option 
     default:
+      return state
+  }
+}
+
+const inputFields = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_INPUT_FIELD':
+      return [...state, action.newInputField]
+    case 'REMOVE_INPUT_FIELD':
+      // remove that whole entry from the 
+    case 'UPDATE_INPUT_FIELD':
+      // modify part of the entry
+    default: 
       return state
   }
 }
