@@ -10,58 +10,71 @@ const mapDispachToProps = dispatch =>
 
 class FileOptions extends Component {
   state = {
-    selected: '',
-    value: ''
+    option: '',
+    newName: ''
   }
 
-  handleSelectedChange = option => {
-    this.setState({ selected: option })
+  changeOption = option => {
+    this.setState({ option })
   }
 
-  handleChange = event => {
-    this.setState({ value: event.target.value })
+  changeNewName = event => {
+    this.setState({ newName: event.target.value })
   }
 
-  handleSubmit = event => {
+  submitNewName = event => {
     event.preventDefault()
-    this.props.renameItem(this.props.id, this.state.value)
-    this.setState({ value: '' })
+    const { renameItem, id } = this.props
+    renameItem(id, this.state.newName)
+    this.setState({ newName: '' })
   }
 
   render() {
-    const { handleChange, handleSubmit, handleSelectedChange } = this
-    const { selected, value } = this.state
-    const { id } = this.props
+    const { changeNewName, submitNewName, changeOption } = this
+    const { option, newName } = this.state
+    const { id, groupType, open, toggleDir } = this.props
 
     return (
       <Options>
-        {selected === '' && (
+        {groupType === 'file' && option === '' && (
           <Fragment>
             <Option onClick={() => console.log('download clicked on ' + id)}>
               Download
             </Option>
-            <Option onClick={() => handleSelectedChange('rename')}>
+            <Option onClick={() => changeOption('rename')}>
               Rename
             </Option>
-            <Option onClick={() => handleSelectedChange('delete')}>
+            <Option onClick={() => changeOption('delete')}>
               Delete
             </Option>
           </Fragment>
         )}
 
-        {selected === 'rename' && (
-          <form onSubmit={handleSubmit}>
+        {groupType === 'folder' && option === '' && (
+          <Fragment>
+            <Option onClick={() => toggleDir(id)}>{open ? 'Close' : 'Open'}</Option>
+            <Option onClick={() => changeOption('rename')}>
+              Rename
+            </Option>
+            <Option onClick={() => changeOption('delete')}>
+              Delete
+            </Option>
+          </Fragment>
+        )}
+
+        {option === 'rename' && (
+          <form onSubmit={submitNewName}>
             <input
               type="text"
-              value={value}
-              onChange={handleChange}
+              value={newName}
+              onChange={changeNewName}
               placeholder="type new name here"
             />
             <input type="submit" value="Submit" />
           </form>
         )}
 
-        {selected === 'delete' && (
+        {option === 'delete' && (
           <span>
             Are you sure you want to delete this file?
             <button onClick={() => console.log('clicked yes')}>Yes</button>

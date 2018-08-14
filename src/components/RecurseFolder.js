@@ -22,9 +22,8 @@ import NewFile from '../icons/FileUpload'
 import NewFolder from '../icons/NewFolder'
 
 // import components
-import FileOptions from './FileOptions'
-import FolderOptions from './FolderOptions'
 import InputField from './InputField'
+import OptionsGroup from './OptionsGroup'
 
 const mapStateToProps = state => ({
   folder: state.dir,
@@ -57,7 +56,9 @@ const RecurseFolder = ({
             <Group primary>
               <File />
               {item.name}
-              {item.id === selected && <FileOptions id={item.id} />}
+              {item.id === selected && (
+                <OptionsGroup id={item.id} groupType="file" />
+              )}
             </Group>
             <Group>never | 0 mb</Group>
           </LI>
@@ -81,10 +82,10 @@ const RecurseFolder = ({
                 </Group>
                 {item.id === selected && (
                   <Fragment>
-                    <FolderOptions
-                      open={item.open}
+                    <OptionsGroup
                       id={item.id}
-                      toggleDir={toggleDir}
+                      open={item.open}
+                      groupType="file"
                     />
 
                     <Options>

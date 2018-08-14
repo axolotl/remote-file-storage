@@ -11,26 +11,6 @@ import copyObject from '../utils/copyObject'
 // import mock state
 import { mockState } from './mockState'
 
-// const toggleDir = (id, state) => {
-//   let newState = copyObject(state)
-
-//   const toggleRecursively = (id, folder) => {
-//     folder.forEach((item, i) => {
-//       if (item.id === id) {
-//         item.open = !item.open
-//       }
-
-//       if (item.type === 'folder') {
-//         toggleRecursively(id, item.contents)
-//       }
-//     })
-//   }
-
-//   toggleRecursively(id, newState)
-
-//   return newState
-// }
-
 const updateRecursively = (id, state, changeType, changeVal = '') => {
   let newState = copyObject(state)
 
@@ -46,26 +26,19 @@ const updateRecursively = (id, state, changeType, changeVal = '') => {
         // tooggle open/closed
         if (changeType === 'toggleDir') {
           item.open = !item.open
-          return 
+          return
         }
 
         // change name
         else if (changeType === 'rename') {
           item.name = changeVal
           return
-        }
-
-        else if (changeType === 'delete') {
+        } else if (changeType === 'delete') {
           console.error('delete does not work. needs new method.')
           return
-        }
-
-        else if (changeType === 'addItem')
-          item.contents.push(changeVal)
-          return
-      }
-
-      else if (item.type === 'folder') {
+        } else if (changeType === 'addItem') item.contents.push(changeVal)
+        return
+      } else if (item.type === 'folder') {
         recurse(id, item.contents, changeType, changeVal)
       }
     })
@@ -75,7 +48,6 @@ const updateRecursively = (id, state, changeType, changeVal = '') => {
 
   return newState
 }
-
 
 const dir = (state = mockState, action) => {
   switch (action.type) {
