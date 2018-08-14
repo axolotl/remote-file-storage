@@ -11,30 +11,80 @@ import copyObject from '../utils/copyObject'
 // import mock state
 import { mockState } from './mockState'
 
-const toggleDir = (id, state) => {
+// const toggleDir = (id, state) => {
+//   let newState = copyObject(state)
+
+//   const toggleRecursively = (id, folder) => {
+//     folder.forEach((item, i) => {
+//       if (item.id === id) {
+//         item.open = !item.open
+//       }
+
+//       if (item.type === 'folder') {
+//         toggleRecursively(id, item.contents)
+//       }
+//     })
+//   }
+
+//   toggleRecursively(id, newState)
+
+//   return newState
+// }
+
+const updateRecursively = (id, state, changeType, changeVal = '') => {
   let newState = copyObject(state)
 
-  const toggleRecursively = (id, folder) => {
-    folder.forEach((item, i) => {
+  const recurse = (id, dir, changeType, changeVal) => {
+    dir.forEach(item => {
       if (item.id === id) {
-        item.open = !item.open
+        // apply chagne
+        // change open
+        // change name
+        // delete
+        // add item
+
+        // tooggle open/closed
+        if (changeType === 'toggleDir') {
+          item.open = !item.open
+          return 
+        }
+
+        // change name
+        else if (changeType === 'rename') {
+          item.name = changeVal
+          return
+        }
+
+        else if (changeType === 'delete') {
+          console.error('delete does not work. needs new method.')
+          return
+        }
+
+        else if (changeType === 'addItem')
+          item.contents.push(changeVal)
+          return
       }
 
-      if (item.type === 'folder') {
-        toggleRecursively(id, item.contents)
+      else if (item.type === 'folder') {
+        recurse(id, item.contents, changeType, changeVal)
       }
     })
   }
 
-  toggleRecursively(id, newState)
+  recurse(id, newState, changeType, changeVal)
 
   return newState
 }
 
+
 const dir = (state = mockState, action) => {
   switch (action.type) {
     case 'TOGGLE_DIR':
-      return toggleDir(action.id, state)
+      return updateRecursively(action.id, state, 'toggleDir')
+    case 'RENAME_ITEM':
+      return updateRecursively(action.id, state, 'rename', action.newName)
+    case 'DELETE_ITEM':
+      return state
     default:
       return state
   }

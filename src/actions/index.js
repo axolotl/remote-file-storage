@@ -25,3 +25,14 @@ export const removeInputField = field => ({
   type: 'REMOVE_INPUT_FIELD',
   field
 })
+
+export const renameItem = (id, newName) => ({
+  type: 'RENAME_ITEM',
+  id,
+  newName
+})
+
+export const deleteItem = id => ({
+  type: 'DELETE_ITEM',
+  id
+})
