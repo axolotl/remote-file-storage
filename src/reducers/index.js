@@ -33,10 +33,16 @@ const updateRecursively = (id, state, changeType, changeVal = '') => {
         else if (changeType === 'rename') {
           item.name = changeVal
           return
-        } else if (changeType === 'delete') {
+        }
+
+        // delete item
+        else if (changeType === 'delete') {
           console.error('delete does not work. needs new method.')
           return
-        } else if (changeType === 'addItem') item.contents.push(changeVal)
+        }
+
+        // add item
+        else if (changeType === 'addItem') item.contents.push(changeVal)
         return
       } else if (item.type === 'folder') {
         recurse(id, item.contents, changeType, changeVal)
@@ -49,6 +55,30 @@ const updateRecursively = (id, state, changeType, changeVal = '') => {
   return newState
 }
 
+const deleteItem = (id, state) => {
+  let newState = copyObject(state)
+
+  console.log(newState)
+
+  const filterDelete = (id, dir) => {
+    dir = dir.filter(item => item.id !== id)
+    dir.forEach(item => {
+      if (item.type === 'folder') {
+        item.contents = filterDelete(id, item.contents)
+      }
+    })
+
+    return dir
+  }
+
+  newState = filterDelete(id, newState)
+
+  console.log(newState)
+
+  return newState
+
+}
+
 const dir = (state = mockState, action) => {
   switch (action.type) {
     case 'TOGGLE_DIR':
@@ -56,7 +86,7 @@ const dir = (state = mockState, action) => {
     case 'RENAME_ITEM':
       return updateRecursively(action.id, state, 'rename', action.newName)
     case 'DELETE_ITEM':
-      return state
+      return deleteItem(action.id, state)
     default:
       return state
   }

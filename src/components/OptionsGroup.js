@@ -29,8 +29,13 @@ class FileOptions extends Component {
     this.setState({ newName: '' })
   }
 
+  handleDelete = event => {
+    const { deleteItem, id } = this.props 
+    deleteItem(id)
+  }
+
   render() {
-    const { changeNewName, submitNewName, changeOption } = this
+    const { changeNewName, submitNewName, changeOption, handleDelete } = this
     const { option, newName } = this.state
     const { id, groupType, open, toggleDir } = this.props
 
@@ -77,7 +82,7 @@ class FileOptions extends Component {
         {option === 'delete' && (
           <span>
             Are you sure you want to delete this file?
-            <button onClick={() => console.log('clicked yes')}>Yes</button>
+            <button onClick={() => handleDelete()}>Yes</button>
             <button onClick={() => console.log('clicked no')}>No</button>
           </span>
         )}
