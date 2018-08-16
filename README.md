@@ -1,4 +1,6 @@
 ## Remote File Storage
+Current status: frond end working with mock data
+
 Bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app) and additional libarries and configuration. 
 
 Additional config includes:
