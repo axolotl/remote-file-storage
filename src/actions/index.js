@@ -36,3 +36,9 @@ export const deleteItem = id => ({
   type: 'DELETE_ITEM',
   id
 })
+
+export const createFolder = (id, name) => ({
+  type: 'CREATE_FOLDER',
+  id, 
+  name
+})

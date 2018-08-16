@@ -83,7 +83,7 @@ class FileOptions extends Component {
           <span>
             Are you sure you want to delete this file?
             <button onClick={() => handleDelete()}>Yes</button>
-            <button onClick={() => console.log('clicked no')}>No</button>
+            <button onClick={() => changeOption('')}>No</button>
           </span>
         )}
       </Options>

@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import uuid from 'uuid'
 import copyObject from '../utils/copyObject'
 
 // what do we need?
@@ -35,12 +36,6 @@ const updateRecursively = (id, state, changeType, changeVal = '') => {
           return
         }
 
-        // delete item
-        else if (changeType === 'delete') {
-          console.error('delete does not work. needs new method.')
-          return
-        }
-
         // add item
         else if (changeType === 'addItem') item.contents.push(changeVal)
         return
@@ -58,8 +53,6 @@ const updateRecursively = (id, state, changeType, changeVal = '') => {
 const deleteItem = (id, state) => {
   let newState = copyObject(state)
 
-  console.log(newState)
-
   const filterDelete = (id, dir) => {
     dir = dir.filter(item => item.id !== id)
     dir.forEach(item => {
@@ -67,16 +60,48 @@ const deleteItem = (id, state) => {
         item.contents = filterDelete(id, item.contents)
       }
     })
-
     return dir
   }
 
   newState = filterDelete(id, newState)
+  return newState
+}
 
-  console.log(newState)
+const addFolder = (id, name, state) => {
+  let newState = copyObject(state)
+
+  const addTo = (folder) => {
+    folder.push({
+      type: 'folder',
+      name: name,
+      id: uuid(),
+      open: false,
+      contents: []
+    })
+  }
+
+  if (id === 'base') {
+    addTo(newState)
+  }
+
+  else {
+    const findID = (id, dir) => {
+      dir.forEach(item => {
+        if (item.id === id) {
+          return item
+        }
+        else if (item.type === 'folder') {
+          return findID(id, item.contents)
+        }
+      })
+    }
+
+    let dirToAddTo = findID(id, newState)
+
+    addTo(dirToAddTo)
+  }
 
   return newState
-
 }
 
 const dir = (state = mockState, action) => {
@@ -87,6 +112,8 @@ const dir = (state = mockState, action) => {
       return updateRecursively(action.id, state, 'rename', action.newName)
     case 'DELETE_ITEM':
       return deleteItem(action.id, state)
+    case 'CREATE_FOLDER':
+      return addFolder(action.id, action.name, state)
     default:
       return state
   }

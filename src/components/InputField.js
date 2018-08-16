@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actionCreators from '../actions'
 import { LI, Option } from '../styles/FileSystemStyles'
+import NewFolder from './NewFolder'
 
 const mapDispachToProps = dispatch =>
   bindActionCreators(actionCreators, dispatch)
 
-const InputField = ({ head, id, removeInputField, inputFields }) => (
+const InputField = ({ head, id, removeInputField, inputFields, createFolder }) => (
   <Fragment>
     {inputFields[id] === 'newfile' && (
       <LI input head={head ? head : ''}>
@@ -28,7 +29,7 @@ const InputField = ({ head, id, removeInputField, inputFields }) => (
         ) : (
           <span>Enter name of new subfolder:</span>
         )}
-        <input type="text" />
+        <NewFolder id={id} createFolder={createFolder} />
         <Option onClick={() => removeInputField(id)}>Cancel</Option>
       </LI>
     )}
