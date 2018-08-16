@@ -4,9 +4,14 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "concurrently": "^3.6.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-html": "^4.0.5",
     "eslint-plugin-markdown": "^1.0.0-beta.6",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.18.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
@@ -20,6 +25,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "eject": "react-scripts eject",
+    "dev": "concurrently \"react-scripts start\" \"nodemon server\""
+  },
+  "proxy": "http://localhost:8000"
 }
