@@ -88,6 +88,7 @@ const addFolder = (id, name, state) => {
     const findID = (id, dir) => {
       dir.forEach(item => {
         if (item.id === id) {
+          foundDir = item
           return item
         }
         else if (item.type === 'folder') {
@@ -96,9 +97,12 @@ const addFolder = (id, name, state) => {
       })
     }
 
-    let dirToAddTo = findID(id, newState)
+    // accessing an outside variable instead of returning it super hacky
+    // need to fix
 
-    addTo(dirToAddTo)
+    let foundDir
+    let dirToAddTo = findID(id, newState)
+    addTo(foundDir.contents)
   }
 
   return newState

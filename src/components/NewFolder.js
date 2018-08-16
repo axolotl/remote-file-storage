@@ -9,9 +9,11 @@ class NewFolder extends Component {
     this.setState({ value: event.target.value })
   }
 
-  handleSubmit = () => {
-    const { createFolder, id } = this.props 
+  handleSubmit = (event) => {
+    event.preventDefault()
+    const { createFolder, id, removeInputField } = this.props 
     createFolder(id, this.state.value)
+    removeInputField(id)
   }
 
   render() {

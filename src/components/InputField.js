@@ -29,7 +29,7 @@ const InputField = ({ head, id, removeInputField, inputFields, createFolder }) =
         ) : (
           <span>Enter name of new subfolder:</span>
         )}
-        <NewFolder id={id} createFolder={createFolder} />
+        <NewFolder id={id} createFolder={createFolder} removeInputField={removeInputField}/>
         <Option onClick={() => removeInputField(id)}>Cancel</Option>
       </LI>
     )}
