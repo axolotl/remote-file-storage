@@ -1,26 +1,18 @@
-'use strict'
+'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Item = sequelize.define(
-    'item',
-    {
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      type: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      belongsTO: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      location: {
-        type: DataTypes.STRING,
-        allowNull: true
-      }
+  var Item = sequelize.define('Item', {
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: sequelize.literal('uuid_generate_v4()')
     },
-    {}
-  )
-  return Item
-}
+    name: DataTypes.STRING,
+    type: DataTypes.STRING,
+    belongsTo: DataTypes.STRING,
+    location: DataTypes.STRING
+  }, {});
+  Item.associate = function(models) {
+    // associations can be defined here
+  };
+  return Item;
+};

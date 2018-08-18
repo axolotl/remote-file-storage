@@ -37,8 +37,9 @@ module.exports = {
   },
 
   list(req, res) {
-    return Item.findAll({ where: { belongsTo: req.body.folder } })
+    return Item.findAll({ where: { belongsTo: req.params.folderId } })
       .then(scores => res.status(200).send(scores))
       .catch(error => res.status(400).send(error))
   }
+
 }
