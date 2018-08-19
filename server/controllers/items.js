@@ -10,8 +10,7 @@ module.exports = {
       })
         .then(score => res.status(201).send(score))
         .catch(error => res.status(400).send(error))
-    }
-    else if (req.body.type === 'file') {
+    } else if (req.body.type === 'file') {
       return Item.create({
         name: req.body.name,
         type: 'file',
@@ -20,25 +19,23 @@ module.exports = {
       })
         .then(score => res.status(201).send(score))
         .catch(error => res.status(400).send(error))
-    }
-    else {
+    } else {
       return res.status(400).send('something went wrong')
     }
   },
 
   rename(req, res) {
-    return Item.findById(req.params.itemId)
-      .then(item => {
-        if (!item) {
-          return res.status(400).send('item not found')
-        }
-        return item
-          .update({
-            name: req.body.name
-          })
-          .then(() => res.status(200).send(item))
-          .catch(error => res.status(400).send(error))
-      })
+    return Item.findById(req.params.itemId).then(item => {
+      if (!item) {
+        return res.status(400).send('item not found')
+      }
+      return item
+        .update({
+          name: req.body.name
+        })
+        .then(() => res.status(200).send(item))
+        .catch(error => res.status(400).send(error))
+    })
   },
 
   destroy(req, res) {
