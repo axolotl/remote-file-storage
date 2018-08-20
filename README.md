@@ -7,5 +7,8 @@ Additional config includes:
 * `styled-components` for CSS-in-JS styling
 * `redux` for state management
 * `axios` for API requests
+* `express` for the server
+* `sequelize` for ORM
+* `postgres` for database
 
 To run a local instance, run `yarn install` then `yarn start`.
