@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actionCreators from '../actions'
-import uuid from 'uuid'
 import { Options, Option } from '../styles/FileSystemStyles'
 
 const mapDispachToProps = dispatch =>

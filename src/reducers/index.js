@@ -98,7 +98,7 @@ const addFolder = (id, name, state) => {
     // need to fix
 
     let foundDir
-    let dirToAddTo = findID(id, newState)
+    // let dirToAddTo = findID(id, newState)
     addTo(foundDir.contents)
   }
 
@@ -161,7 +161,7 @@ const openFolders = (state = [], action) => {
   switch (action.type) {
     case 'TOGGLE':
       return state.includes(action.id)
-        ? state.filter(item => item != action.id)
+        ? state.filter(item => item !== action.id)
         : [...state, action.id]
     default:
       return state

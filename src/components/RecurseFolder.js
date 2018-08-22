@@ -8,7 +8,6 @@ import uuid from 'uuid'
 import {
   UL,
   LI,
-  HorizonalRule,
   Group,
   Options,
   Option

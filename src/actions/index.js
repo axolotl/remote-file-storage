@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const readItemsDB = (id) => dispatch => {
+export const readItemsDB = id => dispatch => {
   if (!id) {
     axios.get('/api/items/')
       .then(res => dispatch(populateInitialState(res)))
@@ -41,31 +41,31 @@ export const deleteItemDB = id => dispatch => {
     .catch(error => console.log(error))
 }
 
-export const populateInitialState = (state) => {
+export const populateInitialState = (state) => ({
   type: 'POPULATE_INITIAL_STATE',
   state
-}
+})
 
-export const populateNestedState = (state) => {
+export const populateNestedState = (state) => ({
   type: 'POPULATE_NESTED_STATE',
   state
-}
+})
 
-export const populateNewItem = (id, item) => {
+export const populateNewItem = (id, item) => ({
   type: 'POPULATE_NEW_ITEM',
   item
-}
+})
 
-export const populateNewName = (id, newName) => {
+export const populateNewName = (id, newName) => ({
   type: 'POPULATE_NEW_NAME',
   id,
   newName
-}
+})
 
-export const populateDeleteItem = (id) => {
+export const populateDeleteItem = (id) => ({
   type: 'POPULATE_DELETE_ITEM',
   id
-}
+})
 
 // ------------------------------------------------ //
 

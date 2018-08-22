@@ -1,8 +1,7 @@
-import React, { Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actionCreators from '../actions'
-import uuid from 'uuid'
 
 // import styles
 import {
@@ -29,31 +28,68 @@ const mapStateToProps = state => ({
 const mapDispachToProps = dispatch =>
   bindActionCreators(actionCreators, dispatch)
 
-const FileSystem = ({ inputFields, addInputField }) => (
-  <UL inner={false}>
-    <LI header>
-      <Group>Files and Folders</Group>
+class FileSystem extends Component {
+  componentDidMount() {
+    const { readItemsDB } = this.props
+    readItemsDB()
+  }
 
-      <Group>
-        <Options>
-          <Option onClick={() => addInputField('base', 'newfile')}>
-            <NewFile />
-          </Option>
-          <Option onClick={() => addInputField('base', 'newfolder')}>
-            <NewFolder />
-          </Option>
-        </Options>
-      </Group>
+  render() {
+    const { inputFields, addInputField } = this.props 
 
-      <Group>Last modified | Size</Group>
-    </LI>
+    return (
+      <UL inner={false}>
+        <LI header>
+          <Group>Files and Folders</Group>
 
-    <InputField head id='base' addInputField={addInputField} inputFields={inputFields}/>
+          <Group>
+            <Options>
+              <Option onClick={() => addInputField('base', 'newfile')}>
+                <NewFile />
+              </Option>
+              <Option onClick={() => addInputField('base', 'newfolder')}>
+                <NewFolder />
+              </Option>
+            </Options>
+          </Group>
 
-    <HorizonalRule />
-    <RecurseFolder />
-  </UL>
-)
+          <Group>Last modified | Size</Group>
+        </LI>
+
+        <InputField head id='base' addInputField={addInputField} inputFields={inputFields}/>
+
+        <HorizonalRule />
+        <RecurseFolder />
+      </UL>
+    )
+  }
+}
+
+// const FileSystem = ({ inputFields, addInputField }) => (
+//   <UL inner={false}>
+//     <LI header>
+//       <Group>Files and Folders</Group>
+
+//       <Group>
+//         <Options>
+//           <Option onClick={() => addInputField('base', 'newfile')}>
+//             <NewFile />
+//           </Option>
+//           <Option onClick={() => addInputField('base', 'newfolder')}>
+//             <NewFolder />
+//           </Option>
+//         </Options>
+//       </Group>
+
+//       <Group>Last modified | Size</Group>
+//     </LI>
+
+//     <InputField head id='base' addInputField={addInputField} inputFields={inputFields}/>
+
+//     <HorizonalRule />
+//     <RecurseFolder />
+//   </UL>
+// )
 
 export default connect(
   mapStateToProps,
