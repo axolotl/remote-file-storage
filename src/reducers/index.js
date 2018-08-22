@@ -70,7 +70,7 @@ const deleteItem = (id, state) => {
 const addFolder = (id, name, state) => {
   let newState = copyObject(state)
 
-  const addTo = (folder) => {
+  const addTo = folder => {
     folder.push({
       type: 'folder',
       name: name,
@@ -82,16 +82,13 @@ const addFolder = (id, name, state) => {
 
   if (id === 'base') {
     addTo(newState)
-  }
-
-  else {
+  } else {
     const findID = (id, dir) => {
       dir.forEach(item => {
         if (item.id === id) {
           foundDir = item
           return item
-        }
-        else if (item.type === 'folder') {
+        } else if (item.type === 'folder') {
           return findID(id, item.contents)
         }
       })
@@ -108,10 +105,27 @@ const addFolder = (id, name, state) => {
   return newState
 }
 
+const local = (state = [], action) => {
+  switch (action.type) {
+    case 'POPULATE_INITIAL_STATE':
+      return action.state
+    case 'POPULATE_NESTED_STATE':
+      return // need new method here
+    case 'POPULATE_NEW_ITEM':
+      return // addFolder ... but also add item ...
+    case 'POPULATE_NEW_NAME':
+      return // need new props?
+    case 'POPULATE_DELETE_ITEM':
+      return deleteItem(action.id, state)
+    default:
+      return state
+  }
+}
+
 const dir = (state = mockState, action) => {
   switch (action.type) {
-    case 'TOGGLE_DIR':
-      return updateRecursively(action.id, state, 'toggleDir')
+    // case 'TOGGLE_DIR':
+    //   return updateRecursively(action.id, state, 'toggleDir')
     case 'RENAME_ITEM':
       return updateRecursively(action.id, state, 'rename', action.newName)
     case 'DELETE_ITEM':
@@ -143,10 +157,23 @@ const inputFields = (state = {}, action) => {
   }
 }
 
+const openFolders = (state = [], action) => {
+  switch (action.type) {
+    case 'TOGGLE':
+      return state.includes(action.id)
+        ? state.filter(item => item != action.id)
+        : [...state, action.id]
+    default:
+      return state
+  }
+}
+
 const AppState = combineReducers({
+  local,
   dir,
   selected,
-  inputFields
+  inputFields,
+  openFolders
 })
 
 export default AppState

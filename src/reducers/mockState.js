@@ -20,7 +20,6 @@ export const mockState = [
     type: 'folder',
     name: 'test_folder',
     id: uuid(),
-    open: false,
     contents: [
       {
         type: 'file',
@@ -31,7 +30,6 @@ export const mockState = [
         type: 'folder',
         name: 'nested_folder',
         id: uuid(),
-        open: false,
         contents: []
       }
     ]
@@ -40,7 +38,6 @@ export const mockState = [
     type: 'folder',
     name: 'test_folder2',
     id: uuid(),
-    open: false,
     contents: [
       {
         type: 'file',
@@ -51,7 +48,6 @@ export const mockState = [
         type: 'folder',
         name: 'nested_folder',
         id: uuid(),
-        open: false,
         contents: [
           {
             type: 'file',
@@ -62,7 +58,6 @@ export const mockState = [
             type: 'folder',
             name: 'nested_folder',
             id: uuid(),
-            open: false,
             contents: []
           }
         ]

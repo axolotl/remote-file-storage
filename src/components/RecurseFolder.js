@@ -29,7 +29,8 @@ const mapStateToProps = state => ({
   folder: state.dir,
   selected: state.selected,
   inputOption: state.inputOption,
-  inputFields: state.inputFields
+  inputFields: state.inputFields,
+  openFolders: state.openFolders
 })
 
 const mapDispachToProps = dispatch =>
@@ -38,11 +39,12 @@ const mapDispachToProps = dispatch =>
 const RecurseFolder = ({
   inner = false,
   folder,
-  toggleDir,
+  toggleFolder,
   selected,
   selectItem,
   addInputField,
-  inputFields
+  inputFields,
+  openFolders
 }) => (
   <UL inner={inner}>
     {folder.map(
@@ -73,18 +75,18 @@ const RecurseFolder = ({
                   onClick={() => {
                     selectItem(item.id)
                     if (item.id === selected) {
-                      toggleDir(item.id)
+                      toggleFolder(item.id)
                     }
                   }}
                 >
-                  {item.open ? <OpenFolder /> : <Folder />}
+                  {openFolders.includes(item.id) ? <OpenFolder /> : <Folder />}
                   {item.name}
                 </Group>
                 {item.id === selected && (
                   <Fragment>
                     <OptionsGroup
                       id={item.id}
-                      open={item.open}
+                      open={openFolders.includes(item.id)}
                       groupType="file"
                     />
 
@@ -112,16 +114,17 @@ const RecurseFolder = ({
               />
             </UL>
 
-            {item.open &&
+            {openFolders.includes(item.id) &&
               (item.contents.length > 0 ? (
                 <RecurseFolder
                   inner={true}
                   folder={item.contents}
-                  toggleDir={toggleDir}
+                  toggleFolder={toggleFolder}
                   selected={selected}
                   selectItem={selectItem}
                   addInputField={addInputField}
                   inputFields={inputFields}
+                  openFolders={openFolders}
                 />
               ) : (
                 <UL inner={inner}>

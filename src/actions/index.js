@@ -21,7 +21,7 @@ export const createItemDB = (name, type, belongsTo, location) => dispatch => {
       belongsTo,
       location
     })
-    .then(res => dispatch(populateNewItem(res.id, res.type, res.belongsTo)))
+    .then(res => dispatch(populateNewItem(res.data)))
     .catch(error => console.log(error))
 }
 
@@ -51,11 +51,9 @@ export const populateNestedState = (state) => {
   state
 }
 
-export const populateNewItem = (id, type, belongsTo) => {
+export const populateNewItem = (id, item) => {
   type: 'POPULATE_NEW_ITEM',
-  id,
-  type,
-  belongsTo
+  item
 }
 
 export const populateNewName = (id, newName) => {
@@ -114,4 +112,11 @@ export const createFolder = (id, name) => ({
   type: 'CREATE_FOLDER',
   id,
   name
+})
+
+// new method for managin which folders will be open 
+
+export const toggleFolder = (id) => ({
+  type: 'TOGGLE',
+  id
 })
