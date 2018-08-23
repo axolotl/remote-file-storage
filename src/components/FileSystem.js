@@ -18,7 +18,8 @@ import NewFile from '../icons/FileUpload'
 import NewFolder from '../icons/NewFolder'
 
 // import components
-import RecurseFolder from './RecurseFolder'
+// import RecurseFolder from './RecurseFolder'
+import SubFolder from './SubFolder'
 import InputField from './InputField'
 
 const mapStateToProps = state => ({
@@ -59,37 +60,11 @@ class FileSystem extends Component {
         <InputField head id='base' addInputField={addInputField} inputFields={inputFields}/>
 
         <HorizonalRule />
-        <RecurseFolder />
+        <SubFolder />
       </UL>
     )
   }
 }
-
-// const FileSystem = ({ inputFields, addInputField }) => (
-//   <UL inner={false}>
-//     <LI header>
-//       <Group>Files and Folders</Group>
-
-//       <Group>
-//         <Options>
-//           <Option onClick={() => addInputField('base', 'newfile')}>
-//             <NewFile />
-//           </Option>
-//           <Option onClick={() => addInputField('base', 'newfolder')}>
-//             <NewFolder />
-//           </Option>
-//         </Options>
-//       </Group>
-
-//       <Group>Last modified | Size</Group>
-//     </LI>
-
-//     <InputField head id='base' addInputField={addInputField} inputFields={inputFields}/>
-
-//     <HorizonalRule />
-//     <RecurseFolder />
-//   </UL>
-// )
 
 export default connect(
   mapStateToProps,

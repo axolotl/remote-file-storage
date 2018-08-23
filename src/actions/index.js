@@ -3,12 +3,12 @@ import axios from 'axios'
 export const readItemsDB = id => dispatch => {
   if (!id) {
     axios.get('/api/items/')
-      .then(res => dispatch(populateInitialState(res)))
+      .then(res => dispatch(populateInitialState(res.data)))
       .catch(error => console.log(error))
   } else {
     axios
     .get(`/api/items/${id}`)
-    .then(res => dispatch(populateNestedState(res)))
+    .then(res => dispatch(populateNestedState(res.data)))
     .catch(error => console.log(error))
   }
 }
@@ -46,8 +46,9 @@ export const populateInitialState = (state) => ({
   state
 })
 
-export const populateNestedState = (state) => ({
+export const populateNestedState = (belongsTo, state) => ({
   type: 'POPULATE_NESTED_STATE',
+  belongsTo,
   state
 })
 

@@ -19,7 +19,7 @@ import InputField from './InputField'
 import OptionsGroup from './OptionsGroup'
 
 const mapStateToProps = state => ({
-  folder: state.local.base,
+  directory: state.local,
   selected: state.selected,
   inputOption: state.inputOption,
   inputFields: state.inputFields,
@@ -29,9 +29,10 @@ const mapStateToProps = state => ({
 const mapDispachToProps = dispatch =>
   bindActionCreators(actionCreators, dispatch)
 
-const RecurseFolder = ({
+const SubFolder = ({
   inner = false,
-  folder,
+  subFolderID = false,
+  directory,
   toggleFolder,
   selected,
   selectItem,
@@ -40,9 +41,9 @@ const RecurseFolder = ({
   openFolders
 }) => (
   <UL inner={inner}>
-    {folder && (
+    {((!subFolderID && directory.base) || directory[subFolderID]) && (
       <Fragment>
-        {folder.map(
+        {(!subFolderID ? directory.base : directory[subFolderID]).map(
           (item, i) =>
             item.type === 'file' ? (
               <LI
@@ -117,15 +118,16 @@ const RecurseFolder = ({
 
                 {openFolders.includes(item.id) &&
                   (item.contents.length > 0 ? (
-                    <RecurseFolder
+                    <SubFolder
                       inner={true}
-                      folder={item.contents}
+                      directory={item.contents}
                       toggleFolder={toggleFolder}
                       selected={selected}
                       selectItem={selectItem}
                       addInputField={addInputField}
                       inputFields={inputFields}
                       openFolders={openFolders}
+                      subFolderID={item.id}
                     />
                   ) : (
                     <UL inner={inner}>
@@ -143,4 +145,4 @@ const RecurseFolder = ({
 export default connect(
   mapStateToProps,
   mapDispachToProps
-)(RecurseFolder)
+)(SubFolder)

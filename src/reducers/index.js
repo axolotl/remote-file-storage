@@ -105,12 +105,12 @@ const addFolder = (id, name, state) => {
   return newState
 }
 
-const local = (state = [], action) => {
+const local = (state = {}, action) => {
   switch (action.type) {
     case 'POPULATE_INITIAL_STATE':
-      return action.state
+      return { ...state, base: action.state}
     case 'POPULATE_NESTED_STATE':
-      return // need new method here
+      return { ...state, [action.belongsTo]: action.state }
     case 'POPULATE_NEW_ITEM':
       return // addFolder ... but also add item ...
     case 'POPULATE_NEW_NAME':
