@@ -2,7 +2,6 @@ import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actionCreators from '../actions'
-import uuid from 'uuid'
 
 // import styles
 import { UL, LI, Group, Options, Option } from '../styles/FileSystemStyles'
@@ -16,10 +15,10 @@ import NewFolder from '../icons/NewFolder'
 
 // import components
 import InputField from './InputField'
-import OptionsGroup from './OptionsGroup'
+import ItemOptions from './ItemOptions'
 
 const mapStateToProps = state => ({
-  folder: state.local.base,
+  directory: state.local,
   selected: state.selected,
   inputOption: state.inputOption,
   inputFields: state.inputFields,
@@ -29,9 +28,10 @@ const mapStateToProps = state => ({
 const mapDispachToProps = dispatch =>
   bindActionCreators(actionCreators, dispatch)
 
-const RecurseFolder = ({
+const FileSystemContents = ({
   inner = false,
-  folder,
+  subFolderID = false,
+  directory,
   toggleFolder,
   selected,
   selectItem,
@@ -40,27 +40,27 @@ const RecurseFolder = ({
   openFolders
 }) => (
   <UL inner={inner}>
-    {folder && (
+    {((!subFolderID && directory.base) || directory[subFolderID]) && (
       <Fragment>
-        {folder.map(
+        {(!subFolderID ? directory.base : directory[subFolderID]).map(
           (item, i) =>
             item.type === 'file' ? (
               <LI
                 onClick={() => selectItem(item.id)}
-                key={uuid()}
+                key={item.id}
                 selected={item.id === selected}
               >
                 <Group primary>
                   <File />
                   {item.name}
                   {item.id === selected && (
-                    <OptionsGroup id={item.id} groupType="file" />
+                    <ItemOptions id={item.id} groupType="file" />
                   )}
                 </Group>
                 <Group>never | 0 mb</Group>
               </LI>
             ) : (
-              <Fragment key={uuid()}>
+              <Fragment key={item.id}>
                 <LI
                   onClick={() => selectItem(item.id)}
                   selected={item.id === selected}
@@ -83,7 +83,7 @@ const RecurseFolder = ({
                     </Group>
                     {item.id === selected && (
                       <Fragment>
-                        <OptionsGroup
+                        <ItemOptions
                           id={item.id}
                           open={openFolders.includes(item.id)}
                           groupType="file"
@@ -116,16 +116,17 @@ const RecurseFolder = ({
                 </UL>
 
                 {openFolders.includes(item.id) &&
-                  (item.contents.length > 0 ? (
-                    <RecurseFolder
+                  (directory[item.id] ? (
+                    <FileSystemContents
                       inner={true}
-                      folder={item.contents}
+                      directory={directory}
                       toggleFolder={toggleFolder}
                       selected={selected}
                       selectItem={selectItem}
                       addInputField={addInputField}
                       inputFields={inputFields}
                       openFolders={openFolders}
+                      subFolderID={item.id}
                     />
                   ) : (
                     <UL inner={inner}>
@@ -143,4 +144,4 @@ const RecurseFolder = ({
 export default connect(
   mapStateToProps,
   mapDispachToProps
-)(RecurseFolder)
+)(FileSystemContents)

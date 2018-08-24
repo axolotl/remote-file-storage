@@ -1,8 +1,8 @@
 import React from 'react'
 import { injectGlobal } from 'styled-components'
 import PageContainer from '../styles/PageContainer'
-import Header from './Header'
-import Content from './Content'
+import PageHeader from './PageHeader'
+import PageContent from './PageContent'
 
 injectGlobal`
   html, body, #root {
@@ -14,8 +14,8 @@ injectGlobal`
 
 const App = () => (
   <PageContainer>
-    <Header />
-    <Content />
+    <PageHeader />
+    <PageContent />
   </PageContainer>
 )
 

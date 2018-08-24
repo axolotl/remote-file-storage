@@ -18,8 +18,7 @@ import NewFile from '../icons/FileUpload'
 import NewFolder from '../icons/NewFolder'
 
 // import components
-// import RecurseFolder from './RecurseFolder'
-import SubFolder from './SubFolder'
+import FileSystemContents from './FileSystemContents'
 import InputField from './InputField'
 
 const mapStateToProps = state => ({
@@ -60,7 +59,7 @@ class FileSystem extends Component {
         <InputField head id='base' addInputField={addInputField} inputFields={inputFields}/>
 
         <HorizonalRule />
-        <SubFolder />
+        <FileSystemContents />
       </UL>
     )
   }

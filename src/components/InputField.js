@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actionCreators from '../actions'
 import { LI, Option } from '../styles/FileSystemStyles'
-import NewFolder from './NewFolder'
+import InputFieldNewFolder from './InputFieldNewFolder'
 
 const mapDispachToProps = dispatch =>
   bindActionCreators(actionCreators, dispatch)
@@ -29,7 +29,7 @@ const InputField = ({ head, id, removeInputField, inputFields, createFolder }) =
         ) : (
           <span>Enter name of new subfolder:</span>
         )}
-        <NewFolder id={id} createFolder={createFolder} removeInputField={removeInputField}/>
+        <InputFieldNewFolder id={id} createFolder={createFolder} removeInputField={removeInputField}/>
         <Option onClick={() => removeInputField(id)}>Cancel</Option>
       </LI>
     )}

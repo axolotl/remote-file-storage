@@ -7,7 +7,7 @@ import { Options, Option } from '../styles/FileSystemStyles'
 const mapDispachToProps = dispatch =>
   bindActionCreators(actionCreators, dispatch)
 
-class FileOptions extends Component {
+class ItemOptions extends Component {
   state = {
     option: '',
     newName: ''
@@ -93,4 +93,4 @@ class FileOptions extends Component {
 export default connect(
   null,
   mapDispachToProps
-)(FileOptions)
+)(ItemOptions)
