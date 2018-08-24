@@ -8,7 +8,7 @@ export const readItemsDB = id => dispatch => {
   } else {
     axios
     .get(`/api/items/${id}`)
-    .then(res => dispatch(populateNestedState(res.data)))
+    .then(res => dispatch(populateNestedState(id, res.data)))
     .catch(error => console.log(error))
   }
 }
@@ -70,10 +70,6 @@ export const populateDeleteItem = (id) => ({
 
 // ------------------------------------------------ //
 
-export const toggleDir = id => ({
-  type: 'TOGGLE_DIR',
-  id
-})
 
 export const setSelectedItem = id => ({
   type: 'SELECT_ITEM',
@@ -117,7 +113,16 @@ export const createFolder = (id, name) => ({
 
 // new method for managin which folders will be open 
 
-export const toggleFolder = (id) => ({
+export const setToggleFolder = (id) => ({
   type: 'TOGGLE',
   id
 })
+
+export const toggleFolder = id => (dispatch, getState) => {
+  const { local } = getState()
+  dispatch(setToggleFolder(id))
+
+  if (!local[id]) {
+    dispatch(readItemsDB(id))
+  }
+}

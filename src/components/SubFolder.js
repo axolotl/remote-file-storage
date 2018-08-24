@@ -2,7 +2,6 @@ import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actionCreators from '../actions'
-import uuid from 'uuid'
 
 // import styles
 import { UL, LI, Group, Options, Option } from '../styles/FileSystemStyles'
@@ -48,7 +47,7 @@ const SubFolder = ({
             item.type === 'file' ? (
               <LI
                 onClick={() => selectItem(item.id)}
-                key={uuid()}
+                key={item.id}
                 selected={item.id === selected}
               >
                 <Group primary>
@@ -61,7 +60,7 @@ const SubFolder = ({
                 <Group>never | 0 mb</Group>
               </LI>
             ) : (
-              <Fragment key={uuid()}>
+              <Fragment key={item.id}>
                 <LI
                   onClick={() => selectItem(item.id)}
                   selected={item.id === selected}
@@ -117,10 +116,10 @@ const SubFolder = ({
                 </UL>
 
                 {openFolders.includes(item.id) &&
-                  (item.contents.length > 0 ? (
+                  (directory[item.id] ? (
                     <SubFolder
                       inner={true}
-                      directory={item.contents}
+                      directory={directory}
                       toggleFolder={toggleFolder}
                       selected={selected}
                       selectItem={selectItem}
