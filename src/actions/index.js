@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // read database //
 
-export const populateInitialState = (state) => ({
+export const populateInitialState = state => ({
   type: 'POPULATE_INITIAL_STATE',
   state
 })
@@ -15,37 +15,31 @@ export const populateNestedState = (belongsTo, state) => ({
 
 export const readItemsDB = id => dispatch => {
   if (!id) {
-    axios.get('/api/items/')
+    axios
+      .get('/api/items/')
       .then(res => dispatch(populateInitialState(res.data)))
       .catch(error => console.log(error))
   } else {
     axios
-    .get(`/api/items/${id}`)
-    .then(res => dispatch(populateNestedState(id, res.data)))
-    .catch(error => console.log(error))
+      .get(`/api/items/${id}`)
+      .then(res => dispatch(populateNestedState(id, res.data)))
+      .catch(error => console.log(error))
   }
 }
 
-// add to database // 
+// add to database //
 
-export const createFolder = (id, name) => ({
-  type: 'CREATE_FOLDER',
-  id,
-  name
-})
-
-export const populateNewItem = (id, item) => ({
+export const populateNewItem = res => ({
   type: 'POPULATE_NEW_ITEM',
-  item
+  item: res
 })
 
-export const createItemDB = (name, type, belongsTo, location) => dispatch => {
+export const createItemDB = (name, type, belongsTo) => dispatch => {
   axios
     .post('/api/items', {
       name,
       type,
-      belongsTo,
-      location
+      belongsTo: belongsTo === 'base' ? '' : belongsTo
     })
     .then(res => dispatch(populateNewItem(res.data)))
     .catch(error => console.log(error))
@@ -74,14 +68,14 @@ export const updateItemDB = (id, newName) => dispatch => {
     .catch(error => console.log(error))
 }
 
-// delete from database // 
+// delete from database //
 
 export const deleteItem = id => ({
   type: 'DELETE_ITEM',
   id
 })
 
-export const populateDeleteItem = (id) => ({
+export const populateDeleteItem = id => ({
   type: 'POPULATE_DELETE_ITEM',
   id
 })
@@ -95,7 +89,7 @@ export const deleteItemDB = id => dispatch => {
 
 // toggle folder //
 
-export const setToggleFolder = (id) => ({
+export const setToggleFolder = id => ({
   type: 'TOGGLE',
   id
 })

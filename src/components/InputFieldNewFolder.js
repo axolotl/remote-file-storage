@@ -11,8 +11,8 @@ class NewFolder extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    const { createFolder, id, removeInputField } = this.props 
-    createFolder(id, this.state.value)
+    const { createItemDB, id, removeInputField } = this.props 
+    createItemDB(this.state.value, 'folder', id)
     removeInputField(id)
   }
 

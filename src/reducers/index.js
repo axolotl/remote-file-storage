@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux'
-import uuid from 'uuid'
-import copyObject from '../utils/copyObject'
+//import copyObject from '../utils/copyObject'
 
 // what do we need?
 // we need to store the state that will render the whole directory
@@ -10,132 +9,140 @@ import copyObject from '../utils/copyObject'
 // add new files and new folders
 
 // import mock state
-import { mockState } from './mockState'
+//import { mockState } from './mockState'
 
-const updateRecursively = (id, state, changeType, changeVal = '') => {
-  let newState = copyObject(state)
+// const updateRecursively = (id, state, changeType, changeVal = '') => {
+//   let newState = copyObject(state)
 
-  const recurse = (id, dir, changeType, changeVal) => {
-    dir.forEach(item => {
-      if (item.id === id) {
-        // apply chagne
-        // change open
-        // change name
-        // delete
-        // add item
+//   const recurse = (id, dir, changeType, changeVal) => {
+//     dir.forEach(item => {
+//       if (item.id === id) {
+//         // apply chagne
+//         // change open
+//         // change name
+//         // delete
+//         // add item
 
-        // tooggle open/closed
-        if (changeType === 'toggleDir') {
-          item.open = !item.open
-          return
-        }
+//         // tooggle open/closed
+//         if (changeType === 'toggleDir') {
+//           item.open = !item.open
+//           return
+//         }
 
-        // change name
-        else if (changeType === 'rename') {
-          item.name = changeVal
-          return
-        }
+//         // change name
+//         else if (changeType === 'rename') {
+//           item.name = changeVal
+//           return
+//         }
 
-        // add item
-        else if (changeType === 'addItem') item.contents.push(changeVal)
-        return
-      } else if (item.type === 'folder') {
-        recurse(id, item.contents, changeType, changeVal)
-      }
-    })
-  }
+//         // add item
+//         else if (changeType === 'addItem') item.contents.push(changeVal)
+//         return
+//       } else if (item.type === 'folder') {
+//         recurse(id, item.contents, changeType, changeVal)
+//       }
+//     })
+//   }
 
-  recurse(id, newState, changeType, changeVal)
+//   recurse(id, newState, changeType, changeVal)
 
-  return newState
-}
+//   return newState
+// }
 
-const deleteItem = (id, state) => {
-  let newState = copyObject(state)
+// const deleteItem = (id, state) => {
+//   let newState = copyObject(state)
 
-  const filterDelete = (id, dir) => {
-    dir = dir.filter(item => item.id !== id)
-    dir.forEach(item => {
-      if (item.type === 'folder') {
-        item.contents = filterDelete(id, item.contents)
-      }
-    })
-    return dir
-  }
+//   const filterDelete = (id, dir) => {
+//     dir = dir.filter(item => item.id !== id)
+//     dir.forEach(item => {
+//       if (item.type === 'folder') {
+//         item.contents = filterDelete(id, item.contents)
+//       }
+//     })
+//     return dir
+//   }
 
-  newState = filterDelete(id, newState)
-  return newState
-}
+//   newState = filterDelete(id, newState)
+//   return newState
+// }
 
-const addFolder = (id, name, state) => {
-  let newState = copyObject(state)
+// const addFolder = (id, name, state) => {
+//   let newState = copyObject(state)
 
-  const addTo = folder => {
-    folder.push({
-      type: 'folder',
-      name: name,
-      id: uuid(),
-      open: false,
-      contents: []
-    })
-  }
+//   const addTo = folder => {
+//     folder.push({
+//       type: 'folder',
+//       name: name,
+//       id: uuid(),
+//       open: false,
+//       contents: []
+//     })
+//   }
 
-  if (id === 'base') {
-    addTo(newState)
-  } else {
-    const findID = (id, dir) => {
-      dir.forEach(item => {
-        if (item.id === id) {
-          foundDir = item
-          return item
-        } else if (item.type === 'folder') {
-          return findID(id, item.contents)
-        }
-      })
-    }
+//   if (id === 'base') {
+//     addTo(newState)
+//   } else {
+//     const findID = (id, dir) => {
+//       dir.forEach(item => {
+//         if (item.id === id) {
+//           foundDir = item
+//           return item
+//         } else if (item.type === 'folder') {
+//           return findID(id, item.contents)
+//         }
+//       })
+//     }
 
-    // accessing an outside variable instead of returning it super hacky
-    // need to fix
+//     // accessing an outside variable instead of returning it super hacky
+//     // need to fix
 
-    let foundDir
-    // let dirToAddTo = findID(id, newState)
-    addTo(foundDir.contents)
-  }
+//     let foundDir
+//     // let dirToAddTo = findID(id, newState)
+//     addTo(foundDir.contents)
+//   }
 
-  return newState
-}
+//   return newState
+// }
 
 const local = (state = {}, action) => {
   switch (action.type) {
     case 'POPULATE_INITIAL_STATE':
-      return { ...state, base: action.state}
+      return { ...state, base: action.state }
     case 'POPULATE_NESTED_STATE':
       return { ...state, [action.belongsTo]: action.state }
     case 'POPULATE_NEW_ITEM':
-      return // addFolder ... but also add item ...
+      // console.log(action.item)
+      // console.log(state.base)
+      // return state
+      return action.item.belongsTo === ''
+        ? ({ ...state, base: [...state.base, action.item] })
+        : ({
+            ...state,
+            [action.belongsTo]: [...state[action.belongsTo], action.item]
+          })
     case 'POPULATE_NEW_NAME':
       return // need new props?
     case 'POPULATE_DELETE_ITEM':
-      return deleteItem(action.id, state)
+      return // can be done in an expression?
     default:
       return state
   }
 }
 
-const dir = (state = mockState, action) => {
-  switch (action.type) {
-    // case 'TOGGLE_DIR':
-    //   return updateRecursively(action.id, state, 'toggleDir')
-    case 'RENAME_ITEM':
-      return updateRecursively(action.id, state, 'rename', action.newName)
-    case 'DELETE_ITEM':
-      return deleteItem(action.id, state)
-    case 'CREATE_FOLDER':
-      return addFolder(action.id, action.name, state)
-    default:
-      return state
-  }
-}
+// const dir = (state = mockState, action) => {action.belongsTo
+//   switch (action.type) {
+//     // case 'TOGGLE_DIR':
+//     //   return updateRecursively(action.id, state, 'toggleDir')
+//     case 'RENAME_ITEM':
+//       return updateRecursively(action.id, state, 'rename', action.newName)
+//     case 'DELETE_ITEM':
+//       return deleteItem(action.id, state)
+//     case 'CREATE_FOLDER':
+//       return addFolder(action.id, action.name, state)
+//     default:
+//       return state
+//   }
+// }
 
 const selected = (state = '', action) => {
   switch (action.type) {
@@ -170,7 +177,6 @@ const openFolders = (state = [], action) => {
 
 const AppState = combineReducers({
   local,
-  dir,
   selected,
   inputFields,
   openFolders
