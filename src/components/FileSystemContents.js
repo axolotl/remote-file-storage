@@ -116,7 +116,7 @@ const FileSystemContents = ({
                 </UL>
 
                 {openFolders.includes(item.id) &&
-                  (directory[item.id] ? (
+                  (directory[item.id] && directory[item.id].length > 0 ? (
                     <FileSystemContents
                       inner={true}
                       directory={directory}
