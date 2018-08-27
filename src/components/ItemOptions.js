@@ -23,8 +23,8 @@ class ItemOptions extends Component {
 
   submitNewName = event => {
     event.preventDefault()
-    const { renameItem, id } = this.props
-    renameItem(id, this.state.newName)
+    const { updateItemDB, id } = this.props
+    updateItemDB(id, this.state.newName)
     this.setState({ newName: '' })
   }
 

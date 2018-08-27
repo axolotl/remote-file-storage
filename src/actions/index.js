@@ -47,16 +47,11 @@ export const createItemDB = (name, type, belongsTo) => dispatch => {
 
 // update item in database //
 
-export const renameItem = (id, newName) => ({
-  type: 'RENAME_ITEM',
-  id,
-  newName
-})
-
-export const populateNewName = (id, newName) => ({
+export const populateNewName = (id, newName, belongsTo) => ({
   type: 'POPULATE_NEW_NAME',
   id,
-  newName
+  newName,
+  belongsTo
 })
 
 export const updateItemDB = (id, newName) => dispatch => {
@@ -64,7 +59,7 @@ export const updateItemDB = (id, newName) => dispatch => {
     .post(`/api/items/${id}`, {
       name: newName
     })
-    .then(res => dispatch(populateNewName(id, newName)))
+    .then(res => dispatch(populateNewName(id, newName, res.data.belongsTo)))
     .catch(error => console.log(error))
 }
 

@@ -7,17 +7,25 @@ const local = (state = {}, action) => {
     case 'POPULATE_NESTED_STATE':
       return { ...state, [action.belongsTo]: action.state }
     case 'POPULATE_NEW_ITEM':
-      console.log(action.item)
-      console.log(state.base)
-      return state
-      // return action.item.belongsTo === ''
-      //   ? ({ ...state, base: [...state.base, action.item] })
-      //   : ({
-      //       ...state,
-      //       [action.belongsTo]: [...state[action.belongsTo], action.item]
-      //     })
+      return action.item.belongsTo === ''
+        ? { ...state, base: [...state.base, action.item] }
+        : {
+            ...state,
+            [action.belongsTo]: [...state[action.belongsTo], action.item]
+          }
     case 'POPULATE_NEW_NAME':
-      return // need new props?
+      return action.belongsTo === ''
+        ? { ...state, base: [...state.base, [action.id]: {...[action.id], name: action.newName}] }
+        : {
+            ...state,
+            [action.belongsTo]: [
+              ...state[action.belongsTo],
+              [action.id]: {
+                ...[action.id],
+                name: action.newName
+              }
+            ]
+          }
     case 'POPULATE_DELETE_ITEM':
       return // can be done in an expression?
     default:
