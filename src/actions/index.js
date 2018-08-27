@@ -9,7 +9,7 @@ export const populateInitialState = state => ({
 
 export const populateNestedState = (belongsTo, state) => ({
   type: 'POPULATE_NESTED_STATE',
-  belongsTo,
+  belongsTo: belongsTo === '' ? 'base' : belongsTo,
   state
 })
 
@@ -51,7 +51,7 @@ export const populateNewName = (id, newName, belongsTo) => ({
   type: 'POPULATE_NEW_NAME',
   id,
   newName,
-  belongsTo
+  belongsTo: belongsTo === '' ? 'base' : belongsTo
 })
 
 export const updateItemDB = (id, newName) => dispatch => {

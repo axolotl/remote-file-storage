@@ -14,18 +14,15 @@ const local = (state = {}, action) => {
             [action.belongsTo]: [...state[action.belongsTo], action.item]
           }
     case 'POPULATE_NEW_NAME':
-      return action.belongsTo === ''
-        ? { ...state, base: [...state.base, [action.id]: {...[action.id], name: action.newName}] }
-        : {
-            ...state,
-            [action.belongsTo]: [
-              ...state[action.belongsTo],
-              [action.id]: {
-                ...[action.id],
-                name: action.newName
-              }
-            ]
-          }
+      return {
+        ...state,
+        [action.belongsTo]: [
+          ...state[action.belongsTo].map(
+            item =>
+              item.id === action.id ? { ...item, name: action.newName } : item
+          )
+        ]
+      }
     case 'POPULATE_DELETE_ITEM':
       return // can be done in an expression?
     default:
