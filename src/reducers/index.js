@@ -11,7 +11,10 @@ const local = (state = {}, action) => {
         ? { ...state, base: [...state.base, action.item] }
         : {
             ...state,
-            [action.belongsTo]: [...state[action.belongsTo], action.item]
+            [action.item.belongsTo]: [
+              ...state[action.item.belongsTo],
+              action.item
+            ]
           }
     case 'POPULATE_NEW_NAME':
       return {

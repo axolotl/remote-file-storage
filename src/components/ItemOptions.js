@@ -30,9 +30,6 @@ class ItemOptions extends Component {
 
   handleDelete = event => {
     const { deleteItemDB, id, belongsTo } = this.props 
-    console.log(id)
-    console.log(belongsTo)
-    console.log(deleteItemDB)
     deleteItemDB(id, belongsTo)
   }
 
