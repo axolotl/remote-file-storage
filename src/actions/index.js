@@ -9,7 +9,7 @@ export const populateInitialState = state => ({
 
 export const populateNestedState = (belongsTo, state) => ({
   type: 'POPULATE_NESTED_STATE',
-  belongsTo: belongsTo === '' ? 'base' : belongsTo,
+  belongsTo,
   state
 })
 
@@ -65,20 +65,16 @@ export const updateItemDB = (id, newName) => dispatch => {
 
 // delete from database //
 
-export const deleteItem = id => ({
-  type: 'DELETE_ITEM',
-  id
-})
-
-export const populateDeleteItem = id => ({
+export const populateDeleteItem = (id, belongsTo) => ({
   type: 'POPULATE_DELETE_ITEM',
-  id
+  id,
+  belongsTo: belongsTo === '' ? 'base' : belongsTo
 })
 
-export const deleteItemDB = id => dispatch => {
+export const deleteItemDB = (id, belongsTo) => dispatch => {
   axios
     .delete(`/api/items/${id}`)
-    .then(res => dispatch(populateDeleteItem(id)))
+    .then(res => dispatch(populateDeleteItem(id, belongsTo)))
     .catch(error => console.log(error))
 }
 

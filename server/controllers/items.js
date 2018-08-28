@@ -46,7 +46,7 @@ module.exports = {
         }
         return item
           .destroy()
-          .then(() => res.status(204).send())
+          .then(() => res.status(204).send('deleted'))
           .catch(error => res.status(400).send(error))
       })
       .catch(error => res.status(400).send(error))

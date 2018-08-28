@@ -85,6 +85,7 @@ const FileSystemContents = ({
                       <Fragment>
                         <ItemOptions
                           id={item.id}
+                          belongsTo={item.belongsTo}
                           open={openFolders.includes(item.id)}
                           groupType="file"
                         />

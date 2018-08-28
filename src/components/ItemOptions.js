@@ -29,8 +29,11 @@ class ItemOptions extends Component {
   }
 
   handleDelete = event => {
-    const { deleteItem, id } = this.props 
-    deleteItem(id)
+    const { deleteItemDB, id, belongsTo } = this.props 
+    console.log(id)
+    console.log(belongsTo)
+    console.log(deleteItemDB)
+    deleteItemDB(id, belongsTo)
   }
 
   render() {

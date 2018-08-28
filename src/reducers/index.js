@@ -24,7 +24,12 @@ const local = (state = {}, action) => {
         ]
       }
     case 'POPULATE_DELETE_ITEM':
-      return // can be done in an expression?
+      return {
+        ...state,
+        [action.belongsTo]: [
+          ...state[action.belongsTo].filter(item => item.id !== action.id)
+        ]
+      }
     default:
       return state
   }
