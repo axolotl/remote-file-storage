@@ -5,7 +5,7 @@ import { H1, H3 } from '../styles/TextStyles'
 const Header = () => (
   <OuterContainer>
     <InnerContainer>
-      <H1>Remote File Storage</H1>
+      <H1>RFS</H1>
       <H3>A Project by Samuel Machat</H3>
     </InnerContainer>
   </OuterContainer>

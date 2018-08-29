@@ -17,7 +17,8 @@ export const LI = styled.li`
   padding-right: 3px;
   color: ${props => props.inactive ? 'grey' : 'black'};
   margin-left: ${props => props.header ? '5px' : 0};
-  background-color: ${props => props.selected ? '#fff989' : ''};
+  background-color: ${props => props.selected ? '#eaeaea' : ''};
+  font-family: 'Questrial', sans-serif;
 `
 
 export const HorizonalRule = styled.li`

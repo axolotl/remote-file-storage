@@ -7,5 +7,4 @@ export const OuterContainer = styled.div`
 
 export const InnerContainer = styled.div`
   width: 700px;
-  margin: 0 20px;
 `

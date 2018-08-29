@@ -5,6 +5,7 @@ import * as actionCreators from '../actions'
 
 // import styles
 import { UL, LI, Group, Options, Option } from '../styles/FileSystemStyles'
+import { Text } from '../styles/TextStyles'
 
 // import icons
 import Folder from '../icons/Folder'
@@ -52,12 +53,12 @@ const FileSystemContents = ({
               >
                 <Group primary>
                   <File />
-                  {item.name}
+                  <Text>{item.name}</Text>
                   {item.id === selected && (
                     <ItemOptions id={item.id} groupType="file" />
                   )}
                 </Group>
-                <Group>never | 0 mb</Group>
+                <Group><p>never | 0 mb</p></Group>
               </LI>
             ) : (
               <Fragment key={item.id}>

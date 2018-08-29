@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const OuterContainer = styled.div`
-  background-color: #ff731c;
   display: flex;
   justify-content: center;
 
@@ -18,6 +17,14 @@ export const InnerContainer = styled.div`
   justify-content: space-between;
 `
 
+// not being used
 export const Title = styled.h1`
   font-weight: normal;
+`
+
+// begin new styles //
+
+export const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
 `
