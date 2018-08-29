@@ -5,7 +5,6 @@ import * as actionCreators from '../actions'
 
 // import styles
 import { UL, LI, Group, Options, Option } from '../styles/FileSystemStyles'
-import { Text } from '../styles/TextStyles'
 
 // import icons
 import Folder from '../icons/Folder'
@@ -52,13 +51,17 @@ const FileSystemContents = ({
                 selected={item.id === selected}
               >
                 <Group primary>
-                  <File />
-                  <Text>{item.name}</Text>
+                  <File
+                    onClick={() =>
+                      item.id !== selected ? toggleFolder(item.id) : null
+                    }
+                  />
+                  {item.name}
                   {item.id === selected && (
                     <ItemOptions id={item.id} groupType="file" />
                   )}
                 </Group>
-                <Group><p>never | 0 mb</p></Group>
+                <Group>never | 0 mb</Group>
               </LI>
             ) : (
               <Fragment key={item.id}>
@@ -76,9 +79,17 @@ const FileSystemContents = ({
                       }}
                     >
                       {openFolders.includes(item.id) ? (
-                        <OpenFolder />
+                        <OpenFolder
+                          onClick={() =>
+                            item.id !== selected ? toggleFolder(item.id) : null
+                          }
+                        />
                       ) : (
-                        <Folder />
+                        <Folder
+                          onClick={() =>
+                            item.id !== selected ? toggleFolder(item.id) : null
+                          }
+                        />
                       )}
                       {item.name}
                     </Group>

@@ -36,7 +36,9 @@ export const Options = styled.span`
 `
 
 export const Option = styled.button`
-  color: #ff731c;
+  font-family: 'Questrial', sans-serif;
+  font-size: 14px;
+  color: #c90000;
   margin-left: 5px;
   padding: 0;
   border: none;
