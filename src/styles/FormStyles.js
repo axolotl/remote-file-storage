@@ -2,6 +2,13 @@ import styled from 'styled-components'
 
 export const InputField = styled.input`
   margin: 0 5px;
+  width: 150px;
+  padding: 0 2px;
+  border: 1px solid ${props => props.error === true ? '#c90000' : '#848484'};
+
+  ::placeholder {
+    color: #c90000;
+  }
 `
 
 export const InputButton = styled.input`

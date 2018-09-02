@@ -3,31 +3,45 @@ import { InputField, InputButton } from '../styles/FormStyles'
 
 class NewFolder extends Component {
   state = {
-    value: ''
+    value: '',
+    error: false
   }
 
-  handleChange = (event) => {
+  handleChange = event => {
     this.setState({ value: event.target.value })
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault()
-    const { createItemDB, id, removeInputField } = this.props 
-    createItemDB(this.state.value, 'folder', id)
-    removeInputField(id)
+    const { createItemDB, id, removeInputField } = this.props
+    const { value } = this.state
+
+    if (value.length > 0) {
+      createItemDB(this.state.value, 'folder', id)
+      removeInputField(id)
+    } else {
+      this.setState({ error: true })
+    }
+  }
+
+  setErrorFalse = () => {
+    this.setState({ error: false })
   }
 
   render() {
-    const { value } = this.props 
-    const { handleChange, handleSubmit } = this
+    const { value } = this.props
+    const { handleChange, handleSubmit, setErrorFalse } = this
+    const { error } = this.state
 
     return (
       <form onSubmit={handleSubmit}>
         <InputField
+          error={error ? true : false}
           type="text"
           value={value}
+          onClick={() => setErrorFalse()}
           onChange={handleChange}
-          placeholder="type new folder name here"
+          placeholder={error ? 'enter name here' : ''}
         />
         <InputButton type="submit" value="Submit" />
       </form>
