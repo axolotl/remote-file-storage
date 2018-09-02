@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actionCreators from '../actions'
 import { Options, Option } from '../styles/FileSystemStyles'
+import { InputField, InputButton } from '../styles/FormStyles'
 
 const mapDispachToProps = dispatch =>
   bindActionCreators(actionCreators, dispatch)
@@ -10,7 +11,8 @@ const mapDispachToProps = dispatch =>
 class ItemOptions extends Component {
   state = {
     option: '',
-    newName: ''
+    newName: '',
+    error: false
   }
 
   changeOption = option => {
@@ -24,65 +26,82 @@ class ItemOptions extends Component {
   submitNewName = event => {
     event.preventDefault()
     const { updateItemDB, id } = this.props
-    updateItemDB(id, this.state.newName)
-    this.setState({ newName: '' })
+    const { newName } = this.state
+
+    if (newName.length > 0) {
+      updateItemDB(id, this.state.newName)
+      this.setState({ newName: '' })
+    } else {
+      this.setState({ error: true })
+    }
   }
 
   handleDelete = event => {
-    const { deleteItemDB, id, belongsTo } = this.props 
+    const { deleteItemDB, id, belongsTo } = this.props
     deleteItemDB(id, belongsTo)
   }
 
+  setErrorFalse = () => {
+    this.setState({ error: false })
+  }
+
   render() {
-    const { changeNewName, submitNewName, changeOption, handleDelete } = this
-    const { option, newName } = this.state
+    const {
+      changeNewName,
+      submitNewName,
+      changeOption,
+      handleDelete,
+      setErrorFalse
+    } = this
+    const { option, newName, error } = this.state
     const { id, groupType, open, toggleDir } = this.props
 
     return (
       <Options>
-        {groupType === 'file' && option === '' && (
-          <Fragment>
-            <Option onClick={() => console.log('download clicked on ' + id)}>
-              Download
-            </Option>
-            <Option onClick={() => changeOption('rename')}>
-              Rename
-            </Option>
-            <Option onClick={() => changeOption('delete')}>
-              Delete
-            </Option>
-          </Fragment>
-        )}
+        {groupType === 'file' &&
+          option === '' && (
+            <Fragment>
+              <Option onClick={() => console.log('download clicked on ' + id)}>
+                Download
+              </Option>
+              <Option onClick={() => changeOption('rename')}>Rename</Option>
+              <Option onClick={() => changeOption('delete')}>Delete</Option>
+            </Fragment>
+          )}
 
-        {groupType === 'folder' && option === '' && (
-          <Fragment>
-            <Option onClick={() => toggleDir(id)}>{open ? 'Close' : 'Open'}</Option>
-            <Option onClick={() => changeOption('rename')}>
-              Rename
-            </Option>
-            <Option onClick={() => changeOption('delete')}>
-              Delete
-            </Option>
-          </Fragment>
-        )}
+        {groupType === 'folder' &&
+          option === '' && (
+            <Fragment>
+              <Option onClick={() => toggleDir(id)}>
+                {open ? 'Close' : 'Open'}
+              </Option>
+              <Option onClick={() => changeOption('rename')}>Rename</Option>
+              <Option onClick={() => changeOption('delete')}>Delete</Option>
+            </Fragment>
+          )}
 
         {option === 'rename' && (
-          <form onSubmit={submitNewName}>
-            <input
-              type="text"
-              value={newName}
-              onChange={changeNewName}
-              placeholder="type new name here"
-            />
-            <input type="submit" value="Submit" />
-          </form>
+          <div style={{ display: 'flex' }}>
+            <form onSubmit={submitNewName}>
+              <InputField
+                error={error}
+                type="text"
+                value={newName}
+                onChange={changeNewName}
+                onClick={setErrorFalse}
+                placeholder="type new name here"
+              />
+              <InputButton type="submit" value="Submit" />
+            </form>
+            <Option onClick={() => changeOption('')}>Cancel</Option>
+          </div>
         )}
 
         {option === 'delete' && (
           <span>
             Are you sure you want to delete this file?
-            <button onClick={() => handleDelete()}>Yes</button>
-            <button onClick={() => changeOption('')}>No</button>
+            <Option onClick={() => handleDelete()}>Yes</Option>
+            <Option onClick={() => changeOption('')}>No</Option>
           </span>
         )}
       </Options>

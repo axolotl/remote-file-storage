@@ -142,7 +142,7 @@ const FileSystemContents = ({
                       subFolderID={item.id}
                     />
                   ) : (
-                    <UL inner={inner}>
+                    <UL inner={true}>
                       <LI inactive>Folder is empty</LI>
                     </UL>
                   ))}
