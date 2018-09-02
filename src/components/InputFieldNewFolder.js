@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { InputField, InputButton } from '../styles/FormStyles'
 
 class NewFolder extends Component {
   state = {
@@ -22,13 +23,13 @@ class NewFolder extends Component {
 
     return (
       <form onSubmit={handleSubmit}>
-        <input
+        <InputField
           type="text"
           value={value}
           onChange={handleChange}
           placeholder="type new folder name here"
         />
-        <input type="submit" value="Submit" />
+        <InputButton type="submit" value="Submit" />
       </form>
     )
   }
