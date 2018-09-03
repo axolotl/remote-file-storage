@@ -123,25 +123,40 @@ export const removeInputField = field => ({
 
 // upload file //
 
-export const uploadSuccess = ({ data }) => ({
+export const populateUploadSuccess = ({ data }) => ({
   type: 'UPLOAD_DOCUMENT_SUCCESS',
   data
 })
 
-export const uploadFail = error => ({
+export const populateUploadFail = error => ({
   type: 'UPLOAD_DOCUMENT_FAIL',
   error
 })
 
-export const uploadDocumentRequest = ({ file, name }) => {
-  let data = new FormData()
-  data.append('file', document)
-  data.append('name', name)
+export const uploadFile = (file) => {
+  // let data = new FormData()
+  // data.append('file', document)
+  // data.append('name', name)
 
-  return dispatch => {
-    axios
-      .post('/files', data)
-      .then(response => dispatch(uploadSuccess(response)))
-      .catch(error => dispatch(uploadFail(error)))
-  }
+  console.log(file)
+
+  // return dispatch => {
+  //   axios
+  //     .post('/files', data)
+  //     .then(response => dispatch(uploadSuccess(response)))
+  //     .catch(error => dispatch(uploadFail(error)))
+  // }
 }
+
+
+/*
+
+const data = new FormData();
+
+You have to give multer the data exactly how it is expecting it which is the encType=”multipart/form-data”. 
+
+data.append(“file”, event.target.files[0]);
+data.append(“name”, “some value user types”);
+data.append(“description”, “some value user types”);
+
+*/

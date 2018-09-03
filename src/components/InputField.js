@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actionCreators from '../actions'
 import { LI, Option } from '../styles/FileSystemStyles'
+import InputFieldUploadFile from './InputFieldUploadFile'
 import InputFieldNewFolder from './InputFieldNewFolder'
 
 const mapDispachToProps = dispatch =>
@@ -12,12 +13,7 @@ const InputField = ({ head, id, removeInputField, inputFields, createItemDB }) =
   <Fragment>
     {inputFields[id] === 'newfile' && (
       <LI input head={head ? head : ''}>
-        <input
-          ref={ref => {
-            this.uploadInput = ref
-          }}
-          type="file"
-        />
+        <InputFieldUploadFile />
         <Option onClick={() => removeInputField(id)}>Cancel</Option>
       </LI>
     )}
