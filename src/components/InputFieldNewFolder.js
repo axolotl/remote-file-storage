@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as actionCreators from '../actions'
 import { InputField, InputButton } from '../styles/FormStyles'
+
+const mapDispachToProps = dispatch =>
+  bindActionCreators(actionCreators, dispatch)
 
 class NewFolder extends Component {
   state = {
@@ -49,4 +55,7 @@ class NewFolder extends Component {
   }
 }
 
-export default NewFolder
+export default connect(
+  null,
+  mapDispachToProps
+)(NewFolder)

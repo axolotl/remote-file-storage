@@ -9,7 +9,7 @@ import InputFieldNewFolder from './InputFieldNewFolder'
 const mapDispachToProps = dispatch =>
   bindActionCreators(actionCreators, dispatch)
 
-const InputField = ({ head, id, removeInputField, inputFields, createItemDB }) => (
+const InputField = ({ head, id, removeInputField, inputFields }) => (
   <Fragment>
     {inputFields[id] === 'newfile' && (
       <LI input head={head ? head : ''}>
@@ -25,7 +25,7 @@ const InputField = ({ head, id, removeInputField, inputFields, createItemDB }) =
         ) : (
           <span>Enter name of new subfolder:</span>
         )}
-        <InputFieldNewFolder id={id} createItemDB={createItemDB} removeInputField={removeInputField}/>
+        <InputFieldNewFolder id={id} removeInputField={removeInputField}/>
         <Option onClick={() => removeInputField(id)}>Cancel</Option>
       </LI>
     )}
