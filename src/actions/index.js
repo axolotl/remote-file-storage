@@ -120,3 +120,28 @@ export const removeInputField = field => ({
   type: 'REMOVE_INPUT_FIELD',
   field
 })
+
+// upload file //
+
+export const uploadSuccess = ({ data }) => ({
+  type: 'UPLOAD_DOCUMENT_SUCCESS',
+  data
+})
+
+export const uploadFail = error => ({
+  type: 'UPLOAD_DOCUMENT_FAIL',
+  error
+})
+
+export const uploadDocumentRequest = ({ file, name }) => {
+  let data = new FormData()
+  data.append('file', document)
+  data.append('name', name)
+
+  return dispatch => {
+    axios
+      .post('/files', data)
+      .then(response => dispatch(uploadSuccess(response)))
+      .catch(error => dispatch(uploadFail(error)))
+  }
+}
