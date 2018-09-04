@@ -13,7 +13,7 @@ const InputField = ({ head, id, removeInputField, inputFields }) => (
   <Fragment>
     {inputFields[id] === 'newfile' && (
       <LI input head={head ? head : ''}>
-        <InputFieldUploadFile />
+        <InputFieldUploadFile id={id} />
         <Option onClick={() => removeInputField(id)}>Cancel</Option>
       </LI>
     )}
@@ -25,7 +25,7 @@ const InputField = ({ head, id, removeInputField, inputFields }) => (
         ) : (
           <span>Enter name of new subfolder:</span>
         )}
-        <InputFieldNewFolder id={id} removeInputField={removeInputField}/>
+        <InputFieldNewFolder id={id} />
         <Option onClick={() => removeInputField(id)}>Cancel</Option>
       </LI>
     )}

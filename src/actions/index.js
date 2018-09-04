@@ -123,7 +123,7 @@ export const removeInputField = field => ({
 
 // upload file //
 
-export const populateUploadSuccess = ({ data }) => ({
+export const populateUploadSuccess = data => ({
   type: 'UPLOAD_DOCUMENT_SUCCESS',
   data
 })
@@ -133,19 +133,16 @@ export const populateUploadFail = error => ({
   error
 })
 
-export const uploadFile = (file) => {
-  // let data = new FormData()
-  // data.append('file', document)
-  // data.append('name', name)
-
-  console.log(file)
-
-  // return dispatch => {
-  //   axios
-  //     .post('/files', data)
-  //     .then(response => dispatch(uploadSuccess(response)))
-  //     .catch(error => dispatch(uploadFail(error)))
-  // }
+export const uploadFile = (name, file, belongsTo) => dispatch => {
+  axios
+    .post('/api/items', {
+      name,
+      type: 'file',
+      belongsTo: belongsTo === 'base' ? '' : belongsTo,
+      file
+    })
+    .then(res => dispatch(populateNewItem(res.data)))
+    .catch(error => console.log(error))
 }
 
 

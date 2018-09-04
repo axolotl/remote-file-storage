@@ -13,20 +13,24 @@ class UploadFile extends Component {
   handleChange = event => {
     const data = new FormData()
     data.append('file', event.target.files[0])
+
+    const name = event.target.files[0].name
+
     this.setState({
+      name,
       data
     })
   }
 
   handleSubmit = event => {
     event.preventDefault()
-    const { uploadFile } = this.props
-    const { data } = this.state
+    const { uploadFile, id } = this.props
+    const { name, data } = this.state
 
     if (data === undefined) {
       throw new Error('must select file to upload')
     } else {
-      uploadFile(data)
+      uploadFile(name, data, id)
     }
   }
 
