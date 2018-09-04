@@ -135,25 +135,13 @@ export const populateUploadFail = error => ({
 
 export const uploadFile = (name, file, belongsTo) => dispatch => {
   axios
-    .post('/api/items', {
+    .post('/api/uploadfile', {
       name,
       type: 'file',
       belongsTo: belongsTo === 'base' ? '' : belongsTo,
       file
     })
-    .then(res => dispatch(populateNewItem(res.data)))
+//    .then(res => dispatch(populateNewItem(res.data)))
+    .then(res => console.log(res.data.message))
     .catch(error => console.log(error))
 }
-
-
-/*
-
-const data = new FormData();
-
-You have to give multer the data exactly how it is expecting it which is the encType=”multipart/form-data”. 
-
-data.append(“file”, event.target.files[0]);
-data.append(“name”, “some value user types”);
-data.append(“description”, “some value user types”);
-
-*/

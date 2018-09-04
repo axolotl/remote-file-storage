@@ -13,6 +13,7 @@ class UploadFile extends Component {
   handleChange = event => {
     const data = new FormData()
     data.append('file', event.target.files[0])
+    data.append('name', event.target.files[0].name)
 
     const name = event.target.files[0].name
 

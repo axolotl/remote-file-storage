@@ -1,5 +1,17 @@
+const multer = require('multer')
 const itemsController = require('../controllers').items
-let mockData = require('../mockData/mockData')
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    console.log('in disk storage')
+    cb(null, path.resolve(__dirname, './'))
+  },
+  filename: (req, file, cb) => {
+    cb(null, req.name)
+  }
+})
+
+const upload = multer({ storage: storage })
 
 module.exports = app => {
   // get root level items (initial api call)
@@ -17,4 +29,9 @@ module.exports = app => {
 
   // delete items
   app.delete('/api/items/:itemId', itemsController.destroy)
+
+  // multer route
+  app.post('/api/uploadfile', upload.single('file'), (req, res) =>
+    res.send({ message: 'attempt made' })
+  )
 }
