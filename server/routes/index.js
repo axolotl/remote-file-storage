@@ -34,4 +34,22 @@ module.exports = app => {
   app.post('/api/uploadfile', upload.single('file'), (req, res) =>
     res.send({ message: 'attempt made' })
   )
+
+  // alternate upload route
+  // app.post('/api/uploadfile', (req, res, next) => {
+  //   console.log(req);
+  //   let imageFile = req.files.file;
+
+  //   imageFile.mv(`${__dirname}/public/${req.body.filename}.jpg`, function(err) {
+  //     if (err) {
+  //       return res.status(500).send(err);
+  //     }
+
+  //     res.json({file: `public/${req.body.filename}.jpg`});
+  //   });
+
+  // })
 }
+
+
+

@@ -12,10 +12,14 @@ class UploadFile extends Component {
 
   handleChange = event => {
     const data = new FormData()
-    data.append('file', event.target.files[0])
-    data.append('name', event.target.files[0].name)
+    //data.append('file', event.target.files[0])
+    data.append('file', this.uploadInput.files[0])
+    //data.append('filename', this.fileName.value);
+    //data.append('name', event.target.files[0].name)
+    data.append('name', this.uploadInput.files[0].name)
 
-    const name = event.target.files[0].name
+    const name = this.uploadInput.files[0].name
+    //const name = event.target.files[0].name
 
     this.setState({
       name,
@@ -26,7 +30,14 @@ class UploadFile extends Component {
   handleSubmit = event => {
     event.preventDefault()
     const { uploadFile, id } = this.props
-    const { name, data } = this.state
+    //const { name, data } = this.state
+
+    const data = new FormData()
+    data.append('file', this.uploadInput.files[0])
+    data.append('name', this.uploadInput.files[0].name)
+    const name = this.uploadInput.files[0].name
+
+    console.log(data)
 
     if (data === undefined) {
       throw new Error('must select file to upload')
@@ -40,7 +51,8 @@ class UploadFile extends Component {
 
     return (
       <div>
-        <input type="file" onChange={handleChange} />
+        {/*<input type="file" onChange={handleChange} />*/}
+        <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
         <Option onClick={handleSubmit}>Upload</Option>
       </div>
     )
