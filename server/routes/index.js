@@ -3,13 +3,14 @@ const itemsController = require('../controllers').items
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    console.log('in disk storage')
-    cb(null, path.resolve(__dirname, './'))
+    cb(null, '/home/theofeau/')
   },
   filename: (req, file, cb) => {
     cb(null, req.name)
   }
 })
+
+//const upload = multer({ dest: './' })
 
 const upload = multer({ storage: storage })
 
@@ -31,8 +32,10 @@ module.exports = app => {
   app.delete('/api/items/:itemId', itemsController.destroy)
 
   // multer route
-  app.post('/api/uploadfile', upload.single('file'), (req, res) =>
+  app.post('/api/uploadfile', upload.single('file'), (req, res) => {
+    console.log(typeof(req.body.file))
     res.send({ message: 'attempt made' })
+  }
   )
 
   // alternate upload route

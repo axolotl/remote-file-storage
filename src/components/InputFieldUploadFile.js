@@ -50,11 +50,11 @@ class UploadFile extends Component {
     const { handleChange, handleSubmit } = this
 
     return (
-      <div>
+      <form encType="multipart/form-data">
         {/*<input type="file" onChange={handleChange} />*/}
-        <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
+        <input ref={(ref) => { this.uploadInput = ref; }} type="file" name='file' />
         <Option onClick={handleSubmit}>Upload</Option>
-      </div>
+      </form>
     )
   }
 }
