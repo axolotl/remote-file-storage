@@ -11,37 +11,23 @@ class UploadFile extends Component {
   state = {}
 
   handleChange = event => {
-    const data = new FormData()
-    //data.append('file', event.target.files[0])
-    data.append('file', this.uploadInput.files[0])
-    //data.append('filename', this.fileName.value);
-    //data.append('name', event.target.files[0].name)
-    data.append('name', this.uploadInput.files[0].name)
-
-    const name = this.uploadInput.files[0].name
-    //const name = event.target.files[0].name
-
-    this.setState({
-      name,
-      data
-    })
+    this.setState({ file: event.target.files[0] })
   }
 
   handleSubmit = event => {
     event.preventDefault()
     const { uploadFile, id } = this.props
-    //const { name, data } = this.state
+    const { file } = this.state
 
-    const data = new FormData()
-    data.append('file', this.uploadInput.files[0])
-    data.append('name', this.uploadInput.files[0].name)
-    const name = this.uploadInput.files[0].name
-
-    console.log(data)
-
-    if (data === undefined) {
-      throw new Error('must select file to upload')
+    if (file === undefined) {
+      console.warn('must select file to upload')
     } else {
+      const data = new FormData()
+      data.append('file', file)
+      data.append('name', file.name)
+      const name = file.name
+
+      console.log('attempting file upload')
       uploadFile(name, data, id)
     }
   }
@@ -50,9 +36,8 @@ class UploadFile extends Component {
     const { handleChange, handleSubmit } = this
 
     return (
-      <form encType="multipart/form-data">
-        {/*<input type="file" onChange={handleChange} />*/}
-        <input ref={(ref) => { this.uploadInput = ref; }} type="file" name='file' />
+      <form>
+        <input type="file" onChange={handleChange} />
         <Option onClick={handleSubmit}>Upload</Option>
       </form>
     )

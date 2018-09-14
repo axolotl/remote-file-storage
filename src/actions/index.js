@@ -134,6 +134,13 @@ export const populateUploadFail = error => ({
 })
 
 export const uploadFile = (name, file, belongsTo) => dispatch => {
+  console.log(file)
+  console.log(file.entries())
+  for (let entry of file.entries()) {
+    console.log(entry)
+  }
+  console.log(file.toString())
+  console.log(JSON.stringify(file))
   axios
     .post('/api/uploadfile', {
       name,
