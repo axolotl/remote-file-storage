@@ -11,4 +11,4 @@ Additional config includes:
 * `sequelize` for ORM
 * `postgres` for database
 
-To run a local instance, run `yarn install` then `yarn start`.
+To run a local instance, run `yarn install` then `yarn dev`.
