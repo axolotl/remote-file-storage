@@ -26,10 +26,6 @@ class UploadFile extends Component {
       data.append('name', file.name)
       data.append('file', file)
       data.append('belongsTo', id)
-      //const name = file.name
-
-      console.log('attempting file upload')
-      //uploadFile(name, data, id)
       uploadFile(data)
     }
   }

@@ -31,17 +31,7 @@ module.exports = app => {
   app.delete('/api/items/:itemId', itemsController.destroy)
 
   // multer route
-  // app.post('/api/uploadfile', upload.single('file'), (req, res) => {
   app.post('/api/uploadfile', upload.single('file'), (req, res) => {
-
-    console.log(req.file)
-    console.log(typeof req.body)
-    console.log(req.body)
-    console.log(JSON.stringify(req.body))
-    console.log(Object.entries(req.body))
-    for (let entry of Object.entries(req.body)) {
-      console.log(entry)
-    }
     res.send({ message: 'attempt made' })
   })
 }

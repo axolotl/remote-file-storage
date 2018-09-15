@@ -134,41 +134,9 @@ export const populateUploadFail = error => ({
 })
 
 export const uploadFile = file => dispatch => {
-  console.log(file)
-  console.log(file.entries())
-  for (let entry of file.entries()) {
-    console.log(entry)
-  }
-  console.log(file.toString())
-  console.log(JSON.stringify(file))
-
-  // axios({
-  //   method: 'post',
-  //   url: '/api/uploadfile',
-  //   data: file,
-  //   })
-
   axios
     .post('/api/uploadfile', file)
-    .then(function (response) {
-        //handle success
-        console.log(response);
-    })
-    .catch(function (response) {
-        //handle error
-        console.log(response);
-    });
-
-
-//   axios
-//     .post('/api/uploadfile', {
-//       name,
-//       type: 'file',
-//       belongsTo: belongsTo === 'base' ? '' : belongsTo,
-//       file,
-//       config: { headers: {'Content-Type': 'multipart/form-data' }}
-//     })
-// //    .then(res => dispatch(populateNewItem(res.data)))
-//     .then(res => console.log(res.data.message))
-//     .catch(error => console.log(error))
+    .then(res => console.log(res))
+    // .then(res => dispatch(populateNewItem(res.data)))
+    .catch(error => console.log(error))
 }
