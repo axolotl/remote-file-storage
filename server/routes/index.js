@@ -1,12 +1,13 @@
 const multer = require('multer')
 const itemsController = require('../controllers').items
+const FormData = require('form-data')
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './')
+    cb(null, __dirname)
   },
   filename: (req, file, cb) => {
-    cb(null, req.name)
+    cb(null, req.body.name)
   }
 })
 
@@ -32,13 +33,15 @@ module.exports = app => {
   // multer route
   // app.post('/api/uploadfile', upload.single('file'), (req, res) => {
   app.post('/api/uploadfile', upload.single('file'), (req, res) => {
-    console.log(req.body.file)
-    console.log(Object.entries(req.body.file))
-    for (let entry of Object.entries(req.body.file)) {
+
+    console.log(req.file)
+    console.log(typeof req.body)
+    console.log(req.body)
+    console.log(JSON.stringify(req.body))
+    console.log(Object.entries(req.body))
+    for (let entry of Object.entries(req.body)) {
       console.log(entry)
     }
-    console.log(req.body.file.toString())
-    console.log(JSON.stringify(req.body.file))
     res.send({ message: 'attempt made' })
   })
 }

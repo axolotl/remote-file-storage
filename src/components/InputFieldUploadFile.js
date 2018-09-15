@@ -23,12 +23,14 @@ class UploadFile extends Component {
       console.warn('must select file to upload')
     } else {
       const data = new FormData()
-      data.append('file', file)
       data.append('name', file.name)
-      const name = file.name
+      data.append('file', file)
+      data.append('belongsTo', id)
+      //const name = file.name
 
       console.log('attempting file upload')
-      uploadFile(name, data, id)
+      //uploadFile(name, data, id)
+      uploadFile(data)
     }
   }
 
