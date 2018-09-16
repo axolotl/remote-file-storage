@@ -4,7 +4,7 @@ const FormData = require('form-data')
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, __dirname)
+    cb(null, './uploads')
   },
   filename: (req, file, cb) => {
     cb(null, req.body.name)
@@ -20,9 +20,8 @@ module.exports = app => {
   // get items nested inside folders
   app.get('/api/items/:folderId', itemsController.list)
 
-  // create folders and files served from same route
-  // controller will handle each separately based on type
-  app.post('/api/items', itemsController.create)
+  // create new folder
+  app.post('/api/items', itemsController.createFolder)
 
   // rename items
   app.post('/api/items/:itemId', itemsController.rename)
@@ -31,7 +30,5 @@ module.exports = app => {
   app.delete('/api/items/:itemId', itemsController.destroy)
 
   // multer route
-  app.post('/api/uploadfile', upload.single('file'), (req, res) => {
-    res.send({ message: 'attempt made' })
-  })
+  app.post('/api/uploadfile', upload.single('file'), itemsController.uploadFile)
 }

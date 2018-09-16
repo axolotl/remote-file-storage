@@ -136,7 +136,6 @@ export const populateUploadFail = error => ({
 export const uploadFile = file => dispatch => {
   axios
     .post('/api/uploadfile', file)
-    .then(res => console.log(res))
-    // .then(res => dispatch(populateNewItem(res.data)))
+    .then(res => dispatch(populateNewItem(res.data)))
     .catch(error => console.log(error))
 }

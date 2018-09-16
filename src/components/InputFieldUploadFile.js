@@ -25,7 +25,7 @@ class UploadFile extends Component {
       const data = new FormData()
       data.append('name', file.name)
       data.append('file', file)
-      data.append('belongsTo', id)
+      data.append('belongsTo', id === 'base' ? '' : id)
       uploadFile(data)
     }
   }

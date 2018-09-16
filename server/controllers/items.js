@@ -1,27 +1,25 @@
 const Item = require('../models').Item
 
 module.exports = {
-  create(req, res) {
-    if (req.body.type === 'folder') {
-      return Item.create({
-        name: req.body.name,
-        type: 'folder',
-        belongsTo: req.body.belongsTo || ''
-      })
-        .then(score => res.status(201).send(score))
-        .catch(error => res.status(400).send(error))
-    } else if (req.body.type === 'file') {
-      return Item.create({
-        name: req.body.name,
-        type: 'file',
-        belongsTo: req.body.belongsTo || '',
-        location: req.body.location
-      })
-        .then(score => res.status(201).send(score))
-        .catch(error => res.status(400).send(error))
-    } else {
-      return res.status(400).send('something went wrong')
-    }
+  createFolder(req, res) {
+    return Item.create({
+      name: req.body.name,
+      type: 'folder',
+      belongsTo: req.body.belongsTo || ''
+    })
+      .then(score => res.status(201).send(score))
+      .catch(error => res.status(400).send(error))
+  },
+
+  uploadFile(req, res) {
+    return Item.create({
+      name: req.body.name,
+      type: 'file',
+      belongsTo: req.body.belongsTo,
+      location: ''
+    })
+      .then(score => res.status(201).send(score))
+      .catch(error => res.status(400).send(error))
   },
 
   rename(req, res) {
