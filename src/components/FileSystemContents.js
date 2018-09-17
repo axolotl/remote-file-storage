@@ -58,7 +58,11 @@ const FileSystemContents = ({
                   />
                   {item.name}
                   {item.id === selected && (
-                    <ItemOptions id={item.id} groupType="file" />
+                    <ItemOptions
+                      id={item.id}
+                      belongsTo={item.belongsTo}
+                      groupType="file"
+                    />
                   )}
                 </Group>
                 <Group>never | 0 mb</Group>
