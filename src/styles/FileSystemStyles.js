@@ -2,22 +2,22 @@ import styled from 'styled-components'
 
 export const UL = styled.ul`
   list-style: none;
-  padding-left: ${props => props.inner ? '20px' : '0'};
+  padding-left: ${({ inner }) => inner ? '20px' : '0'};
 `
 
 export const LI = styled.li`
   display: flex;
   align-items: center;
-  justify-content: ${props => {
-    if (props.input && props.head) { return 'center' }
-    else if (props.input) { return 'flex-start' }
+  justify-content: ${({ input, head }) => {
+    if (input && head) { return 'center' }
+    else if (input) { return 'flex-start' }
     else { return 'space-between' }
   }};
 
   padding-right: 3px;
-  color: ${props => props.inactive ? 'grey' : 'black'};
-  margin-left: ${props => props.header ? '5px' : 0};
-  background-color: ${props => props.selected ? '#eaeaea' : ''};
+  color: ${({ inactive }) => inactive ? 'grey' : 'black'};
+  margin-left: ${({ header }) => header ? '5px' : 0};
+  background-color: ${({ selected }) => selected ? '#eaeaea' : ''};
   font-family: 'Questrial', sans-serif;
 `
 
@@ -28,7 +28,7 @@ export const HorizonalRule = styled.li`
 export const Group = styled.span`
   display: flex;
   align-items: center;
-  cursor: ${props => props.primary ? 'pointer' : ''}
+  cursor: ${({ primary }) => primary ? 'pointer' : ''}
 `
 
 export const Options = styled.span`
