@@ -17,6 +17,9 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+// setup environment variables
+require('dotenv').config()
+
 // serve static assets
 app.use(express.static(path.resolve(__dirname, '..', 'public')))
 
