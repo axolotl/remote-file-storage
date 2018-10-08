@@ -29,6 +29,9 @@ require('./routes')(app)
 // set port
 const PORT = process.env.PORT || 8000
 
+// set up s3
+// require('./aws/s3-config.js')
+
 // setup listener
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`)
