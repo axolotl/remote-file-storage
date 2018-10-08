@@ -1,9 +1,8 @@
-## Remote File Storage
-Current status: front end working with mock data
+## Remote FS
+Remote FS is a project app. The objective is a cloud-based file storage and sharing platform with tools for organizing documents into projects, folders, etc, with invite-based access to private content.
 
-Bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app) and additional libarries and configuration. 
+Built with [Create React App](https://github.com/facebookincubator/create-react-app) and additional libaries including:  
 
-Additional config includes:
 * `styled-components` for CSS-in-JS styling
 * `redux` for state management
 * `axios` for API requests
