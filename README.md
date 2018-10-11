@@ -9,5 +9,6 @@ Built with [Create React App](https://github.com/facebookincubator/create-react-
 * `express` for the server
 * `sequelize` for ORM
 * `postgres` for database
+* `aws-sdk` for file storage (S3 bucket)
 
 To run a local instance, run `yarn install` then `yarn dev`.
