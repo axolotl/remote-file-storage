@@ -12,3 +12,13 @@ Built with [Create React App](https://github.com/facebookincubator/create-react-
 * `aws-sdk` for file storage (S3 bucket)
 
 To run a local instance, run `yarn install` then `yarn dev`.
+
+#### Todos
+* Route uploads to S3 bucket
+* Store file references in database
+* Configure file downloads
+* Host with continuous integration
+* Tests
+* Set up account creation and authentication
+* Enable roll-based access to assets
+* Enable invite access to projects 
