@@ -1,6 +1,7 @@
 const multer = require('multer')
 const itemsController = require('../controllers').items
 const FormData = require('form-data')
+const S3 = require('../aws/S3')
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -30,5 +31,5 @@ module.exports = app => {
   app.delete('/api/items/:itemId', itemsController.destroy)
 
   // multer route
-  app.post('/api/uploadfile', upload.single('file'), itemsController.uploadFile)
+  app.post('/api/uploadfile', upload.single('file'), S3.upload, itemsController.uploadFile)
 }
