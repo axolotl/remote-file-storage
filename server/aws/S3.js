@@ -14,33 +14,12 @@ AWS.config.update({
 })
 
 const s3 = new AWS.S3()
-// const filePath = './uploads/sc-component-outline.png'
-
-// const params = {
-//   Bucket: bucketName,
-//   Body: fs.createReadStream(filePath),
-//   Key: 'folder/' + Date.now() + '_' + path.basename(filePath)
-// }
-
-// s3.upload(params, (err, data) => {
-//   if (err) {
-//     console.log('Error', err)
-//   }
-
-//   if (data) {
-//     console.log('Uploaded in:', data.Location)
-//   }
-// })
 
 module.exports = {
-  upload(req, res) {
-    console.log('attempting upload')
-
-    console.log(req)
-
+  upload(req, res, next) {
     const params = {
       Bucket: bucketName,
-      Body: new Buffer(req.file),
+      Body: req.file.path,
       Key: 'folder/' + Date.now() + '_' + path.basename(req.body.name)
     }
 
@@ -53,5 +32,7 @@ module.exports = {
         console.log('Uploaded in:', data.Location)
       }
     })
+
+    next()
   }
 }
