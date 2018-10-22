@@ -16,7 +16,7 @@ module.exports = {
       name: req.body.name,
       type: 'file',
       belongsTo: req.body.belongsTo,
-      location: ''
+      location: req.file.path
     })
       .then(score => res.status(201).send(score))
       .catch(error => res.status(400).send(error))
