@@ -30,11 +30,14 @@ module.exports = app => {
   // delete items
   app.delete('/api/items/:itemId', itemsController.destroy)
 
-  // multer route
+  // upload file
   app.post(
     '/api/uploadfile',
     upload.single('file'),
     S3.upload,
     itemsController.uploadFile
   )
+
+  // download file
+  app.get('/api/download/:itemId', itemsController.downloadFile)
 }
