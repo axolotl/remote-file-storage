@@ -139,3 +139,12 @@ export const uploadFile = file => dispatch => {
     .then(res => dispatch(populateNewItem(res.data)))
     .catch(error => console.log(error))
 }
+
+// download file //
+
+export const downloadFile = id => dispatch => {
+  axios
+    .get(`/api/download/${id}`)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+}
