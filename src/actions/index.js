@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { saveAs } from 'file-saver'
 
 // read database //
 
@@ -143,8 +144,17 @@ export const uploadFile = file => dispatch => {
 // download file //
 
 export const downloadFile = id => dispatch => {
-  axios
-    .get(`/api/download/${id}`)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+  saveAs("https://httpbin.org/image", "image.jpg")
+  // saveAs(`/api/download/${id}`)
+  // axios
+  //   .get(`/api/download/${id}`)
+  //   .then(res => {
+  //     console.log('then block')
+  //     saveAs(res.data, 'test.jpg')
+  //     console.log(res)
+  //   })
+  //   .catch(err => {
+  //     console.log('am i here?')
+  //     console.log(err)
+  //   })
 }
