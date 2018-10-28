@@ -144,17 +144,31 @@ export const uploadFile = file => dispatch => {
 // download file //
 
 export const downloadFile = id => dispatch => {
-  saveAs("https://httpbin.org/image", "image.jpg")
+  // saveAs("https://httpbin.org/image", "image.jpg")
   // saveAs(`/api/download/${id}`)
-  // axios
-  //   .get(`/api/download/${id}`)
-  //   .then(res => {
-  //     console.log('then block')
-  //     saveAs(res.data, 'test.jpg')
-  //     console.log(res)
-  //   })
-  //   .catch(err => {
-  //     console.log('am i here?')
-  //     console.log(err)
-  //   })
+  axios({
+    url: `/api/download/${id}`,
+    method: 'GET',
+    responseType: 'blob' // important
+  })
+    .then(res => {
+      saveAs(res.data, 'test.jpg')
+      console.log(res)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+
+  // axios({
+  //   url: `/api/download/${id}`,
+  //   method: 'GET',
+  //   responseType: 'blob' // important
+  // }).then(res => {
+  //   const url = window.URL.createObjectURL(new Blob([res.data]))
+  //   const link = document.createElement('a')
+  //   link.href = url
+  //   link.setAttribute('download', 'file.png')
+  //   document.body.appendChild(link)
+  //   link.click()
+  // })
 }
