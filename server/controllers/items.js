@@ -66,7 +66,7 @@ module.exports = {
         } else if (!item.location.length) {
           return res.status(400).send('No file found for that database record')
         }
-
+        
         res.download(item.location)
       })
       .catch(error => res.status(400).send(error))
