@@ -16,7 +16,8 @@ module.exports = {
       name: req.body.name,
       type: 'file',
       belongsTo: req.body.belongsTo,
-      location: req.file.path
+      location: req.file.path,
+      locationAWS: req.locationAWS
     })
       .then(score => res.status(201).send(score))
       .catch(error => res.status(400).send(error))
@@ -66,7 +67,7 @@ module.exports = {
         } else if (!item.location.length) {
           return res.status(400).send('No file found for that database record')
         }
-        
+
         res.download(item.location)
       })
       .catch(error => res.status(400).send(error))

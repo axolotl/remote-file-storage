@@ -30,9 +30,10 @@ module.exports = {
 
       if (data) {
         console.log('Uploaded in:', data.Location)
+        req.locationAWS = data.Location
+        console.log(req.locationAWS)
+        next()
       }
     })
-
-    next()
   }
 }
