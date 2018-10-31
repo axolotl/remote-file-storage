@@ -39,5 +39,5 @@ module.exports = app => {
   )
 
   // download file
-  app.get('/api/download/:itemId', itemsController.downloadFile)
+  app.get('/api/download/:itemId', itemsController.getLocationAWS, S3.download)
 }

@@ -27,6 +27,9 @@ module.exports = {
           location: {
             type: Sequelize.STRING
           },
+          locationAWS: {
+            type: Sequelize.STRING
+          },
           createdAt: {
             allowNull: false,
             type: Sequelize.DATE

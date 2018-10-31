@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     type: DataTypes.STRING,
     belongsTo: DataTypes.STRING,
-    location: DataTypes.STRING
+    location: DataTypes.STRING,
+    locationAWS: DataTypes.STRING
   }, {});
   Item.associate = function(models) {
     // associations can be defined here

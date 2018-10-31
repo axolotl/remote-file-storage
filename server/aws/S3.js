@@ -30,8 +30,31 @@ module.exports = {
 
       if (data) {
         console.log('Uploaded in:', data.Location)
-        req.locationAWS = data.Location
-        console.log(req.locationAWS)
+        req.locationAWS = data.Key
+        next()
+      }
+    })
+  },
+
+  download(req, res, next) {
+    console.log(req.locationAWS)
+
+    const params = {
+      Bucket: bucketName,
+      Key: req.locationAWS
+    }
+
+    s3.getObject(params, (err, data) => {
+      console.log('getting object')
+
+      if (err) {
+        console.log('Error', err)
+      }
+
+      if (data) {
+        console.log('Passing file to client')
+        console.log(data)
+        res.send(data.Body)
         next()
       }
     })
