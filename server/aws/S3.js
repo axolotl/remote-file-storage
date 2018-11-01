@@ -45,18 +45,18 @@ module.exports = {
     }
 
     s3.getObject(params, (err, data) => {
-      console.log('getting object')
-
       if (err) {
         console.log('Error', err)
       }
 
       if (data) {
-        console.log('Passing file to client')
         console.log(data)
-        res.send(data.Body)
-        next()
       }
     })
+      .createReadStream()
+      .on('error', function(err) {
+        res.status(500).json({ error: 'Error -> ' + err })
+      })
+      .pipe(res)
   }
 }

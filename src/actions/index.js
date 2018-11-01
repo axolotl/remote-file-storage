@@ -161,10 +161,10 @@ export const downloadFile = id => dispatch => {
   })
     .then(res => {
       saveAs(
-        res.data,
-        res.headers['content-disposition'].match(
-          /filename[^;\n=]*=((['"]).*?\2|[^;\n]*)/
-        )[1]
+        res.data, 'test.png'
+        // res.headers['content-disposition'].match(
+        //   /filename[^;\n=]*=((['"]).*?\2|[^;\n]*)/
+        // )[1]
       )
     })
     .catch(err => {
