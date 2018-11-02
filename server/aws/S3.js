@@ -19,7 +19,7 @@ module.exports = {
   upload(req, res, next) {
     const params = {
       Bucket: bucketName,
-      Body: req.file.path,
+      Body: fs.createReadStream(req.file.path),
       Key: 'folder/' + Date.now() + '_' + path.basename(req.body.name)
     }
 
@@ -51,12 +51,14 @@ module.exports = {
 
       if (data) {
         console.log(data)
+        let objectData = data.Body.toString('utf-8')
+        console.log(objectData)
       }
     })
-      .createReadStream()
-      .on('error', function(err) {
-        res.status(500).json({ error: 'Error -> ' + err })
-      })
-      .pipe(res)
+      // .createReadStream()
+      // .on('error', function(err) {
+      //   res.status(500).json({ error: 'Error -> ' + err })
+      // })
+      // .pipe(res)
   }
 }
