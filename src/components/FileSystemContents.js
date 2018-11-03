@@ -62,6 +62,7 @@ const FileSystemContents = ({
                       id={item.id}
                       belongsTo={item.belongsTo}
                       groupType="file"
+                      name={item.name}
                     />
                   )}
                 </Group>

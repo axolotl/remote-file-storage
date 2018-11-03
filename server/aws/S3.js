@@ -20,7 +20,7 @@ module.exports = {
     const params = {
       Bucket: bucketName,
       Body: fs.createReadStream(req.file.path),
-      Key: 'folder/' + Date.now() + '_' + path.basename(req.body.name)
+      Key: path.basename(req.body.name)
     }
 
     s3.upload(params, (err, data) => {
@@ -37,7 +37,7 @@ module.exports = {
   },
 
   download(req, res, next) {
-    console.log(req.locationAWS)
+    console.log(req)
 
     const params = {
       Bucket: bucketName,
@@ -51,14 +51,8 @@ module.exports = {
 
       if (data) {
         console.log(data)
-        let objectData = data.Body.toString('utf-8')
-        console.log(objectData)
+        res.send(data.Body)
       }
     })
-      // .createReadStream()
-      // .on('error', function(err) {
-      //   res.status(500).json({ error: 'Error -> ' + err })
-      // })
-      // .pipe(res)
   }
 }

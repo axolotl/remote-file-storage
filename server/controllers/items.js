@@ -74,7 +74,6 @@ module.exports = {
   },
 
   getLocationAWS(req, res, next) {
-    console.log(req.params.itemId)
     return Item.findById(req.params.itemId)
       .then(item => {
         if (!item) {

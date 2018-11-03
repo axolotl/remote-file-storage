@@ -45,8 +45,8 @@ class ItemOptions extends Component {
     this.setState({ error: false })
   }
 
-  handleDownload = id => {
-    this.props.downloadFile(id)
+  handleDownload = (id, name) => {
+    this.props.downloadFile(id, name)
   }
 
   render() {
@@ -59,14 +59,14 @@ class ItemOptions extends Component {
       handleDownload
     } = this
     const { option, newName, error } = this.state
-    const { id, groupType, open, toggleDir } = this.props
+    const { id, name, groupType, open, toggleDir } = this.props
 
     return (
       <Options>
         {groupType === 'file' &&
           option === '' && (
             <Fragment>
-              <Option onClick={() => handleDownload(id)}>Download</Option>
+              <Option onClick={() => handleDownload(id, name)}>Download</Option>
               <Option onClick={() => changeOption('rename')}>Rename</Option>
               <Option onClick={() => changeOption('delete')}>Delete</Option>
             </Fragment>

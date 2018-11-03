@@ -146,7 +146,7 @@ export const uploadFile = file => dispatch => {
 
 // download file //
 
-export const downloadFile = id => dispatch => {
+export const downloadFile = (id, name) => dispatch => {
   // Server will send file as a blob. We need to specify this so that
   // axios knows how to handle it. Then we use `saveAs` from the
   // `file-saver` library to exectute the file download properly.
@@ -160,12 +160,8 @@ export const downloadFile = id => dispatch => {
     responseType: 'blob' // important
   })
     .then(res => {
-      saveAs(
-        res.data, 'test.png'
-        // res.headers['content-disposition'].match(
-        //   /filename[^;\n=]*=((['"]).*?\2|[^;\n]*)/
-        // )[1]
-      )
+      console.log(res)
+      saveAs(res.data, name)
     })
     .catch(err => {
       console.log(err)
