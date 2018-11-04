@@ -32,34 +32,34 @@ module.exports = {
     const form = new multiparty.Form()
     form.parse(req, async (error, fields, files) => {
       if (error) throw new Error(error)
-      try {
-        const path = files.file[0].path
-        const buffer = fs.readFileSync(path)
 
-        // const data = await uploadFile(buffer, fileName, type)
+      const filePath = files.file[0].path
+      const buffer = fs.readFileSync(filePath)
 
-        const params = {
-          Bucket: bucketName,
-          Body: buffer,
-          Key: path.basename(req.body.name)
+      console.log(path)
+      console.log(buffer)
+
+      // const data = await uploadFile(buffer, fileName, type)
+
+      console.log(fields.name[0])      
+
+      const params = {
+        Bucket: bucketName,
+        Body: buffer,
+        Key: fields.name[0]
+      }
+
+      s3.upload(params, (err, data) => {
+        if (err) {
+          console.log('Error', err)
         }
 
-        s3.upload(params, (err, data) => {
-          if (err) {
-            console.log('Error', err)
-          }
-
-          if (data) {
-            console.log('Uploaded in:', data.Location)
-            req.locationAWS = data.Key
-            next()
-          }
-        })
-
-        // return response.status(200).send(data)
-      } catch (error) {
-        return response.status(400).send(error)
-      }
+        if (data) {
+          console.log('Uploaded in:', data.Location)
+          req.locationAWS = data.Key
+          next()
+        }
+      })
     })
   },
 
