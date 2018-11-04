@@ -33,7 +33,7 @@ module.exports = app => {
   // upload file
   app.post(
     '/api/uploadfile',
-    upload.single('file'),
+//     upload.single('file'),
     S3.upload,
     itemsController.uploadFile
   )

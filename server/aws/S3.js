@@ -1,6 +1,7 @@
 const AWS = require('aws-sdk')
 const fs = require('fs')
 const path = require('path')
+const multiparty = require('multiparty')
 
 // get environment vars
 const accessId = process.env.ACCESS_ID
@@ -17,21 +18,47 @@ const s3 = new AWS.S3()
 
 module.exports = {
   upload(req, res, next) {
-    const params = {
-      Bucket: bucketName,
-      Body: fs.createReadStream(req.file.path),
-      Key: path.basename(req.body.name)
-    }
+    // const uploadFile = (buffer, name, type) => {
+    //   const params = {
+    //     ACL: 'public-read',
+    //     Body: buffer,
+    //     Bucket: process.env.DANIK_S3_BUCKET,
+    //     ContentType: type.mime,
+    //     Key: `${name}.${type.ext}`
+    //   }
+    //   return s3.upload(params).promise()
+    // }
 
-    s3.upload(params, (err, data) => {
-      if (err) {
-        console.log('Error', err)
-      }
+    const form = new multiparty.Form()
+    form.parse(req, async (error, fields, files) => {
+      if (error) throw new Error(error)
+      try {
+        const path = files.file[0].path
+        const buffer = fs.readFileSync(path)
 
-      if (data) {
-        console.log('Uploaded in:', data.Location)
-        req.locationAWS = data.Key
-        next()
+        // const data = await uploadFile(buffer, fileName, type)
+
+        const params = {
+          Bucket: bucketName,
+          Body: buffer,
+          Key: path.basename(req.body.name)
+        }
+
+        s3.upload(params, (err, data) => {
+          if (err) {
+            console.log('Error', err)
+          }
+
+          if (data) {
+            console.log('Uploaded in:', data.Location)
+            req.locationAWS = data.Key
+            next()
+          }
+        })
+
+        // return response.status(200).send(data)
+      } catch (error) {
+        return response.status(400).send(error)
       }
     })
   },
