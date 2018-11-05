@@ -17,6 +17,8 @@ To run a local instance, run `yarn install` then `yarn dev`.
 * ~~Route uploads to S3 bucket~~
 * ~~Store file references in database~~
 * ~~Configure file downloads~~
+* Fix double upload of files
+* Refactor ui (incl. drag and drop)
 * Host with continuous integration
 * Tests
 * Set up account creation and authentication
