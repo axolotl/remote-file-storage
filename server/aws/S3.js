@@ -18,30 +18,12 @@ const s3 = new AWS.S3()
 
 module.exports = {
   upload(req, res, next) {
-    // const uploadFile = (buffer, name, type) => {
-    //   const params = {
-    //     ACL: 'public-read',
-    //     Body: buffer,
-    //     Bucket: process.env.DANIK_S3_BUCKET,
-    //     ContentType: type.mime,
-    //     Key: `${name}.${type.ext}`
-    //   }
-    //   return s3.upload(params).promise()
-    // }
-
     const form = new multiparty.Form()
-    form.parse(req, async (error, fields, files) => {
+    form.parse(req, (error, fields, files) => {
       if (error) throw new Error(error)
 
       const filePath = files.file[0].path
       const buffer = fs.readFileSync(filePath)
-
-      console.log(path)
-      console.log(buffer)
-
-      // const data = await uploadFile(buffer, fileName, type)
-
-      console.log(fields.name[0])      
 
       const params = {
         Bucket: bucketName,
@@ -57,6 +39,12 @@ module.exports = {
         if (data) {
           console.log('Uploaded in:', data.Location)
           req.locationAWS = data.Key
+
+          req.body = {
+            name: fields.name[0],
+            belongsTo: fields.belongsTo[0],
+          }
+
           next()
         }
       })
@@ -64,7 +52,7 @@ module.exports = {
   },
 
   download(req, res, next) {
-    console.log(req)
+    console.log(req.body)
 
     const params = {
       Bucket: bucketName,

@@ -16,7 +16,7 @@ module.exports = {
       name: req.body.name,
       type: 'file',
       belongsTo: req.body.belongsTo,
-      location: req.file.path,
+      location: 'aws', // this is temporary --> with only s3 storage this goes away
       locationAWS: req.locationAWS
     })
       .then(score => res.status(201).send(score))
