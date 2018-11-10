@@ -55,7 +55,7 @@ module.exports = {
     return Item.findAll({
       where: { belongsTo: req.params.folderId || '' }
     })
-      .then(scores => res.status(200).send(scores))
+      .then(items => res.status(200).send(items))
       .catch(error => res.status(400).send(error))
   },
 
