@@ -17,12 +17,12 @@ export const populateNestedState = (belongsTo, state) => ({
 export const readItemsDB = id => dispatch => {
   if (!id) {
     axios
-      .get('/api/items/')
+      .get('/api/folders/')
       .then(res => dispatch(populateInitialState(res.data)))
       .catch(error => console.log(error))
   } else {
     axios
-      .get(`/api/items/${id}`)
+      .get(`/api/folders/${id}`)
       .then(res => dispatch(populateNestedState(id, res.data)))
       .catch(error => console.log(error))
   }
@@ -35,9 +35,10 @@ export const populateNewItem = res => ({
   item: res
 })
 
-export const createItemDB = (name, type, belongsTo) => dispatch => {
+// !!! for folders only --> files have their own route with formdata handling
+export const createItemDB = (name, type, belongsTo) => dispatch => { // need to change name
   axios
-    .post('/api/items', {
+    .post('/api/folders/', {
       name,
       type,
       belongsTo: belongsTo === 'base' ? '' : belongsTo
@@ -55,9 +56,11 @@ export const populateNewName = (id, newName, belongsTo) => ({
   belongsTo: belongsTo === '' ? 'base' : belongsTo
 })
 
-export const updateItemDB = (id, newName) => dispatch => {
+export const updateItemDB = (id, type, newName) => dispatch => {
+  // type will be interpolated as either (file)s or (folers)s 
+  // and get sent to the appropriate api route
   axios
-    .post(`/api/items/${id}`, {
+    .put(`/api/${type}s/${id}`, {
       name: newName
     })
     .then(res => dispatch(populateNewName(id, newName, res.data.belongsTo)))
@@ -72,9 +75,10 @@ export const populateDeleteItem = (id, belongsTo) => ({
   belongsTo: belongsTo === '' ? 'base' : belongsTo
 })
 
-export const deleteItemDB = (id, belongsTo) => dispatch => {
+export const deleteItemDB = (id, type, belongsTo) => dispatch => {
+  // type also getting interpolated here --> maybe not good down the road?
   axios
-    .delete(`/api/items/${id}`)
+    .delete(`/api/${type}s/${id}`)
     .then(res => dispatch(populateDeleteItem(id, belongsTo)))
     .catch(error => console.log(error))
 }
@@ -136,7 +140,7 @@ export const populateUploadFail = error => ({
 
 export const uploadFile = file => dispatch => {
   axios
-    .post('/api/uploadfile', file)
+    .post('/api/files', file)
     .then(res => {
       console.log(res)
       dispatch(populateNewItem(res.data))
@@ -155,7 +159,7 @@ export const downloadFile = (id, name) => dispatch => {
   // content-disposition header.
 
   axios({
-    url: `/api/download/${id}`,
+    url: `/api/files/${id}`,
     method: 'GET',
     responseType: 'blob' // important
   })

@@ -69,5 +69,11 @@ module.exports = {
         res.send(data.Body)
       }
     })
+  }, 
+
+  delete(req, res, next) {
+    // handle file deletion on S3 here
+    console.log('deleting file')
+    next()
   }
 }

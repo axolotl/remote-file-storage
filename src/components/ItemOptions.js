@@ -25,11 +25,11 @@ class ItemOptions extends Component {
 
   submitNewName = event => {
     event.preventDefault()
-    const { updateItemDB, id } = this.props
+    const { updateItemDB, id, type } = this.props
     const { newName } = this.state
 
     if (newName.length > 0) {
-      updateItemDB(id, this.state.newName)
+      updateItemDB(id, type, this.state.newName)
       this.setState({ newName: '' })
     } else {
       this.setState({ error: true })
@@ -37,8 +37,8 @@ class ItemOptions extends Component {
   }
 
   handleDelete = event => {
-    const { deleteItemDB, id, belongsTo } = this.props
-    deleteItemDB(id, belongsTo)
+    const { deleteItemDB, id, belongsTo, type } = this.props
+    deleteItemDB(id, type, belongsTo)
   }
 
   setErrorFalse = () => {

@@ -63,6 +63,7 @@ const FileSystemContents = ({
                       belongsTo={item.belongsTo}
                       groupType="file"
                       name={item.name}
+                      type={item.type}
                     />
                   )}
                 </Group>
@@ -103,6 +104,7 @@ const FileSystemContents = ({
                         <ItemOptions
                           id={item.id}
                           belongsTo={item.belongsTo}
+                          type={item.type}
                           open={openFolders.includes(item.id)}
                           groupType="file"
                         />

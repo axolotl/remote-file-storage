@@ -24,7 +24,7 @@ module.exports = {
   },
 
   rename(req, res) {
-    return Item.findById(req.params.itemId).then(item => {
+    return Item.findById(req.params.id).then(item => {
       if (!item) {
         return res.status(400).send('item not found')
       }
@@ -38,7 +38,7 @@ module.exports = {
   },
 
   destroy(req, res) {
-    return Item.findById(req.params.itemId)
+    return Item.findById(req.params.id)
       .then(item => {
         if (!item) {
           return res.status(400).send('item not found')
@@ -53,14 +53,14 @@ module.exports = {
 
   list(req, res) {
     return Item.findAll({
-      where: { belongsTo: req.params.folderId || '' }
+      where: { belongsTo: req.params.id || '' }
     })
       .then(items => res.status(200).send(items))
       .catch(error => res.status(400).send(error))
   },
 
   downloadFile(req, res) {
-    return Item.findById(req.params.itemId)
+    return Item.findById(req.params.id)
       .then(item => {
         if (!item) {
           return res.status(400).send('No database record found for that file')
@@ -74,7 +74,7 @@ module.exports = {
   },
 
   getLocationAWS(req, res, next) {
-    return Item.findById(req.params.itemId)
+    return Item.findById(req.params.id)
       .then(item => {
         if (!item) {
           return res.status(400).send('No database record found for that file')
