@@ -22,5 +22,5 @@ To run a local instance, run `yarn install` then `yarn dev`.
 * Host with continuous integration
 * Tests
 * Set up account creation and authentication
-* Enable roll-based access to assets
+* Enable role-based access to assets
 * Enable invite access to projects 
