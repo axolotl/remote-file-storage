@@ -4,14 +4,14 @@ import React from 'react'
 import { OuterContainer, InnerContainer } from '../styles/ContentContainer'
 
 // import components
-import FileSystem from './FileSystem'
+import FileSystemWrapper from './FileSystemWrapper'
 
-const Content = () => (
+const Wrapper = () => (
   <OuterContainer>
     <InnerContainer>
-      <FileSystem />
+      <FileSystemWrapper />
     </InnerContainer>
   </OuterContainer>
 )
 
-export default Content
+export default Wrapper

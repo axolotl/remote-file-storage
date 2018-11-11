@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { injectGlobal } from 'styled-components'
-import PageContainer from '../styles/PageContainer'
+import { connect } from 'react-redux'
+import { readItemsDB } from '../actions'
+import { PageContainer } from '../styles/PageContainer'
 import PageHeader from './PageHeader'
-import PageContent from './PageContent'
+import PageContentWrapper from './PageContentWrapper'
 
 injectGlobal`
   html, body, #root {
@@ -12,11 +14,23 @@ injectGlobal`
   }
 `
 
-const App = () => (
-  <PageContainer>
-    <PageHeader />
-    <PageContent />
-  </PageContainer>
-)
+class App extends Component {
+  componentDidMount() {
+    const { readItemsDB } = this.props
+    readItemsDB()
+  }
 
-export default App
+  render() {
+    return (
+      <PageContainer>
+        <PageHeader />
+        <PageContentWrapper />
+      </PageContainer>
+    )
+  }
+}
+
+export default connect(
+  null,
+  { readItemsDB }
+)(App)
