@@ -6,10 +6,10 @@ export const setToggleFolder = id => ({
 })
 
 export const toggleFolder = id => (dispatch, getState) => {
-  const { local } = getState()
+  const { directory } = getState()
   dispatch(setToggleFolder(id))
 
-  if (!local[id]) {
+  if (!directory[id]) {
     dispatch(readItemsDB(id))
   }
 }

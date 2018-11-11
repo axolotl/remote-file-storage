@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment as _ } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actionCreators from '../actions'
@@ -17,12 +17,20 @@ import NewFolder from '../icons/NewFolder'
 import InputField from './InputField'
 import ItemOptions from './ItemOptions'
 
-const mapStateToProps = state => ({
-  directory: state.local,
-  selected: state.selected,
-  inputOption: state.inputOption,
-  inputFields: state.inputFields,
-  openFolders: state.openFolders
+// REFACTORING
+import FileRow from './FileSystemContentsFileRow'
+import FolderRow from './FileSystemContentsFolderRow'
+
+const mapStateToProps = ({
+  directory,
+  selected,
+  inputFields,
+  openFolders
+}) => ({
+  directory,
+  selected,
+  inputFields,
+  openFolders
 })
 
 const mapDispachToProps = dispatch =>
@@ -32,100 +40,35 @@ const FileSystemContents = ({
   inner = false,
   subFolderID = false,
   directory,
-  toggleFolder,
   selected,
-  selectItem,
-  addInputField,
   inputFields,
-  openFolders
+  openFolders,
+  toggleFolder,
+  selectItem,
+  addInputField
 }) => (
   <UL inner={inner}>
     {((!subFolderID && directory.base) || directory[subFolderID]) && (
-      <Fragment>
+      <_>
         {(!subFolderID ? directory.base : directory[subFolderID]).map(
           (item, i) =>
             item.type === 'file' ? (
-              <LI
-                onClick={() => selectItem(item.id)}
-                key={item.id}
-                selected={item.id === selected}
-              >
-                <Group primary>
-                  <File
-                    onClick={() =>
-                      item.id !== selected ? toggleFolder(item.id) : null
-                    }
-                  />
-                  {item.name}
-                  {item.id === selected && (
-                    <ItemOptions
-                      id={item.id}
-                      belongsTo={item.belongsTo}
-                      groupType="file"
-                      name={item.name}
-                      type={item.type}
-                    />
-                  )}
-                </Group>
-                <Group>never | 0 mb</Group>
-              </LI>
+              <FileRow
+                {...item}
+                selected={selected}
+                selectItem={selectItem}
+                toggleFolder={toggleFolder}
+              />
             ) : (
-              <Fragment key={item.id}>
-                <LI
-                  onClick={() => selectItem(item.id)}
-                  selected={item.id === selected}
-                >
-                  <Group primary>
-                    <Group
-                      onClick={() => {
-                        selectItem(item.id)
-                        if (item.id === selected) {
-                          toggleFolder(item.id)
-                        }
-                      }}
-                    >
-                      {openFolders.includes(item.id) ? (
-                        <OpenFolder
-                          onClick={() =>
-                            item.id !== selected ? toggleFolder(item.id) : null
-                          }
-                        />
-                      ) : (
-                        <Folder
-                          onClick={() =>
-                            item.id !== selected ? toggleFolder(item.id) : null
-                          }
-                        />
-                      )}
-                      {item.name}
-                    </Group>
-                    {item.id === selected && (
-                      <Fragment>
-                        <ItemOptions
-                          id={item.id}
-                          belongsTo={item.belongsTo}
-                          type={item.type}
-                          open={openFolders.includes(item.id)}
-                          groupType="file"
-                        />
-
-                        <Options>
-                          <Option
-                            onClick={() => addInputField(item.id, 'newfile')}
-                          >
-                            <NewFile />
-                          </Option>
-                          <Option
-                            onClick={() => addInputField(item.id, 'newfolder')}
-                          >
-                            <NewFolder />
-                          </Option>
-                        </Options>
-                      </Fragment>
-                    )}
-                  </Group>
-                  <Group>never | 0 mb</Group>
-                </LI>
+              <_ key={item.id}>
+                <FolderRow
+                  {...item}
+                  selected={selected}
+                  selectItem={selectItem}
+                  toggleFolder={toggleFolder}
+                  addInputField={addInputField}
+                  openFolders={openFolders}
+                />
 
                 <UL inner>
                   <InputField
@@ -153,10 +96,10 @@ const FileSystemContents = ({
                       <LI inactive>Folder is empty</LI>
                     </UL>
                   ))}
-              </Fragment>
+              </_>
             )
         )}
-      </Fragment>
+      </_>
     )}
   </UL>
 )

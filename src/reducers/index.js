@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux'
-import local from './local'
+import directory from './directory'
 import selected from './selected'
 import inputFields from './inputFields'
 import openFolders from './openFolders'
 
 const AppState = combineReducers({
-  local,
+  directory,
   selected,
   inputFields,
   openFolders

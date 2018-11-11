@@ -1,4 +1,4 @@
-const local = (state = {}, action) => {
+const directory = (state = {}, action) => {
   switch (action.type) {
     case 'POPULATE_INITIAL_STATE':
       return { ...state, base: action.state }
@@ -36,4 +36,4 @@ const local = (state = {}, action) => {
   }
 }
 
-export default local
+export default directory
