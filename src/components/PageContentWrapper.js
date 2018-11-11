@@ -1,17 +1,17 @@
 import React from 'react'
 
 // import styles
-import { OuterContainer, InnerContainer } from '../styles/ContentContainer'
+import { CenterContent, ContainToWidth } from '../styles/Containers'
 
 // import components
 import FileSystemWrapper from './FileSystemWrapper'
 
-const Wrapper = () => (
-  <OuterContainer>
-    <InnerContainer>
+const PageContentWrapper = () => (
+  <CenterContent>
+    <ContainToWidth>
       <FileSystemWrapper />
-    </InnerContainer>
-  </OuterContainer>
+    </ContainToWidth>
+  </CenterContent>
 )
 
-export default Wrapper
+export default PageContentWrapper

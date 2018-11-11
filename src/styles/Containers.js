@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 
-export const OuterContainer = styled.div`
+export const CenterContent = styled.div`
   display: flex;
   justify-content: center;
 `
 
-export const InnerContainer = styled.div`
+export const ContainToWidth = styled.div`
   width: 700px;
 `

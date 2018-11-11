@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment as _ } from 'react'
 import { injectGlobal } from 'styled-components'
 import { connect } from 'react-redux'
 import { readItemsDB } from '../actions'
-import { PageContainer } from '../styles/PageContainer'
 import PageHeader from './PageHeader'
 import PageContentWrapper from './PageContentWrapper'
 
@@ -22,10 +21,10 @@ class App extends Component {
 
   render() {
     return (
-      <PageContainer>
+      <_>
         <PageHeader />
         <PageContentWrapper />
-      </PageContainer>
+      </_>
     )
   }
 }

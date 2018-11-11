@@ -1,14 +1,14 @@
 import React from 'react'
-import { OuterContainer, InnerContainer } from '../styles/HeaderStyles'
+import { CenterHeaderWithStyles, ContainToWidthWithStyles } from '../styles/PageHeader'
 import { H1, H3 } from '../styles/TextStyles'
 
 const Header = () => (
-  <OuterContainer>
-    <InnerContainer>
+  <CenterHeaderWithStyles>
+    <ContainToWidthWithStyles>
       <H1>RemoteFS</H1>
       <H3>A Project by Samuel Machat</H3>
-    </InnerContainer>
-  </OuterContainer>
+    </ContainToWidthWithStyles>
+  </CenterHeaderWithStyles>
 )
 
 export default Header
