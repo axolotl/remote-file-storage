@@ -2,8 +2,16 @@ import React, { Component, Fragment as _ } from 'react'
 import { injectGlobal } from 'styled-components'
 import { connect } from 'react-redux'
 import { readItemsDB } from '../actions'
-import PageHeader from './PageHeader'
-import PageContentWrapper from './PageContentWrapper'
+
+import {
+  CenterHeaderWithStyles,
+  ContainToWidthWithStyles
+} from '../styles/PageHeader'
+import { H1, H3 } from '../styles/TextStyles'
+import { CenterContent, ContainToWidth } from '../styles/Containers'
+import { UL } from '../styles/FileSystemStyles'
+import FileSystemHeader from './FileSystemHeader'
+import FileSystemContents from './FileSystemContents'
 
 injectGlobal`
   html, body, #root {
@@ -22,8 +30,21 @@ class App extends Component {
   render() {
     return (
       <_>
-        <PageHeader />
-        <PageContentWrapper />
+        <CenterHeaderWithStyles>
+          <ContainToWidthWithStyles>
+            <H1>RemoteFS</H1>
+            <H3>A Project by Samuel Machat</H3>
+          </ContainToWidthWithStyles>
+        </CenterHeaderWithStyles>
+
+        <CenterContent>
+          <ContainToWidth>
+            <UL inner={false}>
+              <FileSystemHeader />
+              <FileSystemContents />
+            </UL>
+          </ContainToWidth>
+        </CenterContent>
       </_>
     )
   }
