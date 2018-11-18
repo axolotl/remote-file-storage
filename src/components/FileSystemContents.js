@@ -25,7 +25,7 @@ const mapDispachToProps = dispatch =>
 
 const FileSystemContents = ({
   inner = false,
-  subFolderID = false,
+  subFolderID = 'base',
   directory,
   selected,
   inputFields,
@@ -36,63 +36,63 @@ const FileSystemContents = ({
   removeInputField
 }) => (
   <UL inner={inner}>
-    {((!subFolderID && directory.base) || directory[subFolderID]) && (
-      <_>
-        {(!subFolderID ? directory.base : directory[subFolderID]).map(
-          (item, i) =>
-            item.type === 'file' ? (
-              <FileRow
-                key={item.id}
+    {directory[subFolderID] &&
+      directory[subFolderID].map((item, i) => (
+        <_>
+          {item.type === 'file' && (
+            <FileRow
+              key={item.id}
+              {...item}
+              selected={selected}
+              selectItem={selectItem}
+              toggleFolder={toggleFolder}
+            />
+          )}
+
+          {item.type === 'folder' && (
+            <_ key={item.id}>
+              <FolderRow
                 {...item}
                 selected={selected}
                 selectItem={selectItem}
                 toggleFolder={toggleFolder}
+                addInputField={addInputField}
+                openFolders={openFolders}
               />
-            ) : (
-              <_ key={item.id}>
-                <FolderRow
-                  {...item}
-                  selected={selected}
-                  selectItem={selectItem}
-                  toggleFolder={toggleFolder}
-                  addInputField={addInputField}
-                  openFolders={openFolders}
-                />
 
-                {inputFields[item.id] && (
-                  <UL inner>
-                    <InputField
-                      id={item.id}
-                      type={inputFields[item.id]}
-                      removeInputField={removeInputField}
-                    />
+              {inputFields[item.id] && (
+                <UL inner>
+                  <InputField
+                    id={item.id}
+                    type={inputFields[item.id]}
+                    removeInputField={removeInputField}
+                  />
+                </UL>
+              )}
+
+              {openFolders.includes(item.id) &&
+                (directory[item.id] && directory[item.id].length > 0 ? (
+                  <FileSystemContents
+                    inner={true}
+                    directory={directory}
+                    toggleFolder={toggleFolder}
+                    selected={selected}
+                    selectItem={selectItem}
+                    addInputField={addInputField}
+                    removeInputField={removeInputField}
+                    inputFields={inputFields}
+                    openFolders={openFolders}
+                    subFolderID={item.id}
+                  />
+                ) : (
+                  <UL inner={true}>
+                    <LI inactive>Folder is empty</LI>
                   </UL>
-                )}
-
-                {openFolders.includes(item.id) &&
-                  (directory[item.id] && directory[item.id].length > 0 ? (
-                    <FileSystemContents
-                      inner={true}
-                      directory={directory}
-                      toggleFolder={toggleFolder}
-                      selected={selected}
-                      selectItem={selectItem}
-                      addInputField={addInputField}
-                      removeInputField={removeInputField}
-                      inputFields={inputFields}
-                      openFolders={openFolders}
-                      subFolderID={item.id}
-                    />
-                  ) : (
-                    <UL inner={true}>
-                      <LI inactive>Folder is empty</LI>
-                    </UL>
-                  ))}
-              </_>
-            )
-        )}
-      </_>
-    )}
+                ))}
+            </_>
+          )}
+        </_>
+      ))}
   </UL>
 )
 
