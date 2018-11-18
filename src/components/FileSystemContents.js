@@ -59,15 +59,15 @@ const FileSystemContents = ({
                   openFolders={openFolders}
                 />
 
-                <UL inner>
-                  {inputFields[item.id] && (
+                {inputFields[item.id] && (
+                  <UL inner>
                     <InputField
                       id={item.id}
                       type={inputFields[item.id]}
                       removeInputField={removeInputField}
                     />
-                  )}
-                </UL>
+                  </UL>
+                )}
 
                 {openFolders.includes(item.id) &&
                   (directory[item.id] && directory[item.id].length > 0 ? (

@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { addInputField, removeInputField } from '../actions'
 
-// import styles
 import {
   UL,
   LI,
@@ -13,11 +12,9 @@ import {
   Option
 } from '../styles/FileSystemStyles'
 
-// import icons
 import NewFile from '../icons/FileUpload'
 import NewFolder from '../icons/NewFolder'
 
-// import components
 import FileSystemContents from './FileSystemContents'
 import InputField from './InputField'
 
