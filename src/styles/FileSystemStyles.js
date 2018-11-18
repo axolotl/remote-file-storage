@@ -8,8 +8,8 @@ export const UL = styled.ul`
 export const LI = styled.li`
   display: flex;
   align-items: center;
-  justify-content: ${({ input, head }) => {
-    if (input && head) { return 'center' }
+  justify-content: ${({ input, alignCenter }) => {
+    if (input && alignCenter) { return 'center' }
     else if (input) { return 'flex-start' }
     else { return 'space-between' }
   }};

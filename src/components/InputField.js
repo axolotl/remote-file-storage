@@ -1,38 +1,21 @@
-import React, { Fragment } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as actionCreators from '../actions'
+import React, { Fragment as _ } from 'react'
 import { LI, Option } from '../styles/FileSystemStyles'
 import InputFieldUploadFile from './InputFieldUploadFile'
 import InputFieldNewFolder from './InputFieldNewFolder'
 
-const mapDispachToProps = dispatch =>
-  bindActionCreators(actionCreators, dispatch)
+const InputField = ({ alignCenter, id, removeInputField, type }) => (
+  <LI input alignCenter={alignCenter ? alignCenter : ''}>
+    {type === 'newfile' && <InputFieldUploadFile id={id} />}
 
-const InputField = ({ head, id, removeInputField, inputFields }) => (
-  <Fragment>
-    {inputFields[id] === 'newfile' && (
-      <LI input head={head ? head : ''}>
-        <InputFieldUploadFile id={id} />
-        <Option onClick={() => removeInputField(id)}>Cancel</Option>
-      </LI>
-    )}
-
-    {inputFields[id] === 'newfolder' && (
-      <LI input head={head ? head : ''}>
-        {head ? (
-          <span>Enter name of new root level folder:</span>
-        ) : (
-          <span>Enter name of new subfolder:</span>
-        )}
+    {type === 'newfolder' && (
+      <_>
+        <span>Enter name of new folder:</span>
         <InputFieldNewFolder id={id} />
-        <Option onClick={() => removeInputField(id)}>Cancel</Option>
-      </LI>
+      </_>
     )}
-  </Fragment>
+
+    <Option onClick={() => removeInputField(id)}>Cancel</Option>
+  </LI>
 )
 
-export default connect(
-  null,
-  mapDispachToProps
-)(InputField)
+export default InputField

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { addInputField } from '../actions'
+import { addInputField, removeInputField } from '../actions'
 
 // import styles
 import {
@@ -25,7 +25,7 @@ const mapStateToProps = ({ inputFields }) => ({
   inputFields
 })
 
-const FileSystemHeader = ({ inputFields, addInputField }) => (
+const FileSystemHeader = ({ inputFields, addInputField, removeInputField }) => (
   <Fragment>
     <LI header>
       <Group>Files and Folders</Group>
@@ -44,12 +44,14 @@ const FileSystemHeader = ({ inputFields, addInputField }) => (
       <Group>Last modified | Size</Group>
     </LI>
 
-    <InputField
-      head
-      id="base"
-      addInputField={addInputField}
-      inputFields={inputFields}
-    />
+    {inputFields['base'] && (
+      <InputField
+        alignCenter
+        id="base"
+        type={inputFields['base']}
+        removeInputField={removeInputField}
+      />
+    )}
 
     <HorizonalRule />
   </Fragment>
@@ -57,5 +59,5 @@ const FileSystemHeader = ({ inputFields, addInputField }) => (
 
 export default connect(
   mapStateToProps,
-  { addInputField }
+  { addInputField, removeInputField }
 )(FileSystemHeader)

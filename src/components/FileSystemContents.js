@@ -3,23 +3,10 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actionCreators from '../actions'
 
-// import styles
-import { UL, LI, Group, Options, Option } from '../styles/FileSystemStyles'
-
-// import icons
-import Folder from '../icons/Folder'
-import OpenFolder from '../icons/OpenFolder'
-import File from '../icons/File'
-import NewFile from '../icons/FileUpload'
-import NewFolder from '../icons/NewFolder'
-
-// import components
-import InputField from './InputField'
-import ItemOptions from './ItemOptions'
-
-// REFACTORING
 import FileRow from './FileSystemContentsFileRow'
 import FolderRow from './FileSystemContentsFolderRow'
+import InputField from './InputField'
+import { UL, LI, Group, Options, Option } from '../styles/FileSystemStyles'
 
 const mapStateToProps = ({
   directory,
@@ -45,7 +32,8 @@ const FileSystemContents = ({
   openFolders,
   toggleFolder,
   selectItem,
-  addInputField
+  addInputField,
+  removeInputField
 }) => (
   <UL inner={inner}>
     {((!subFolderID && directory.base) || directory[subFolderID]) && (
@@ -54,6 +42,7 @@ const FileSystemContents = ({
           (item, i) =>
             item.type === 'file' ? (
               <FileRow
+                key={item.id}
                 {...item}
                 selected={selected}
                 selectItem={selectItem}
@@ -71,11 +60,13 @@ const FileSystemContents = ({
                 />
 
                 <UL inner>
-                  <InputField
-                    id={item.id}
-                    addInputField={addInputField}
-                    inputFields={inputFields}
-                  />
+                  {inputFields[item.id] && (
+                    <InputField
+                      id={item.id}
+                      type={inputFields[item.id]}
+                      removeInputField={removeInputField}
+                    />
+                  )}
                 </UL>
 
                 {openFolders.includes(item.id) &&
@@ -87,6 +78,7 @@ const FileSystemContents = ({
                       selected={selected}
                       selectItem={selectItem}
                       addInputField={addInputField}
+                      removeInputField={removeInputField}
                       inputFields={inputFields}
                       openFolders={openFolders}
                       subFolderID={item.id}
