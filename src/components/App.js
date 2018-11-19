@@ -1,4 +1,4 @@
-import React, { Component, Fragment as _ } from 'react'
+import React, { Component, Fragment } from 'react'
 import { injectGlobal } from 'styled-components'
 import { connect } from 'react-redux'
 import { readItemsDB } from '../actions'
@@ -29,7 +29,7 @@ class App extends Component {
 
   render() {
     return (
-      <_>
+      <Fragment>
         <CenterHeaderWithStyles>
           <ContainToWidthWithStyles>
             <H1>RemoteFS</H1>
@@ -45,7 +45,7 @@ class App extends Component {
             </UL>
           </ContainToWidth>
         </CenterContent>
-      </_>
+      </Fragment>
     )
   }
 }

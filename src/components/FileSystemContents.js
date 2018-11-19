@@ -1,4 +1,4 @@
-import React, { Fragment as _ } from 'react'
+import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actionCreators from '../actions'
@@ -38,7 +38,7 @@ const FileSystemContents = ({
   <UL inner={inner}>
     {directory[subFolderID] &&
       directory[subFolderID].map((item, i) => (
-        <_>
+        <Fragment key={i}>
           {item.type === 'file' && (
             <FileRow
               key={item.id}
@@ -50,7 +50,7 @@ const FileSystemContents = ({
           )}
 
           {item.type === 'folder' && (
-            <_ key={item.id}>
+            <Fragment key={item.id}>
               <FolderRow
                 {...item}
                 selected={selected}
@@ -89,9 +89,9 @@ const FileSystemContents = ({
                     <LI inactive>Folder is empty</LI>
                   </UL>
                 ))}
-            </_>
+            </Fragment>
           )}
-        </_>
+        </Fragment>
       ))}
   </UL>
 )

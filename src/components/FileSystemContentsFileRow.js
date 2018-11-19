@@ -1,7 +1,7 @@
 import React from 'react'
 import ItemOptions from './ItemOptions'
 import { UL, LI, Group, Options, Option } from '../styles/FileSystemStyles'
-import File from '../icons/File'
+import FileIcon from '../icons/File'
 
 const FileSystemContentsFileRow = ({
   id,
@@ -12,9 +12,10 @@ const FileSystemContentsFileRow = ({
   selectItem,
   toggleFolder
 }) => (
-  <LI onClick={() => selectItem(id)} key={id} selected={id === selected}>
+  // selected expression will be true or false which will determine styling
+  <LI selected={id === selected} onClick={() => selectItem(id)}>
     <Group primary>
-      <File onClick={() => (id !== selected ? toggleFolder(id) : null)} />
+      <FileIcon />
       {name}
       {id === selected && (
         <ItemOptions

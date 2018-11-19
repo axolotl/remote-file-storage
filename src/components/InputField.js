@@ -1,4 +1,4 @@
-import React, { Fragment as _ } from 'react'
+import React, { Fragment } from 'react'
 import { LI, Option } from '../styles/FileSystemStyles'
 import InputFieldUploadFile from './InputFieldUploadFile'
 import InputFieldNewFolder from './InputFieldNewFolder'
@@ -8,10 +8,10 @@ const InputField = ({ alignCenter, id, removeInputField, type }) => (
     {type === 'newfile' && <InputFieldUploadFile id={id} />}
 
     {type === 'newfolder' && (
-      <_>
+      <Fragment>
         <span>Enter name of new folder:</span>
         <InputFieldNewFolder id={id} />
-      </_>
+      </Fragment>
     )}
 
     <Option onClick={() => removeInputField(id)}>Cancel</Option>
