@@ -1,6 +1,6 @@
 import React from 'react'
 import ItemOptions from './ItemOptions'
-import { UL, LI, Group, Options, Option } from '../styles/FileSystemStyles'
+import { LI, Group } from '../styles/FileSystemStyles'
 import FileIcon from '../icons/File'
 
 const FileSystemContentsFileRow = ({

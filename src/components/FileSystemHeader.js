@@ -1,10 +1,8 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { addInputField, removeInputField } from '../actions'
 
 import {
-  UL,
   LI,
   HorizonalRule,
   Group,
@@ -15,7 +13,6 @@ import {
 import NewFile from '../icons/FileUpload'
 import NewFolder from '../icons/NewFolder'
 
-import FileSystemContents from './FileSystemContents'
 import InputField from './InputField'
 
 const mapStateToProps = ({ inputFields }) => ({

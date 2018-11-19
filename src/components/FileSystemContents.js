@@ -6,7 +6,7 @@ import * as actionCreators from '../actions'
 import FileRow from './FileSystemContentsFileRow'
 import FolderRow from './FileSystemContentsFolderRow'
 import InputField from './InputField'
-import { UL, LI, Group, Options, Option } from '../styles/FileSystemStyles'
+import { UL, LI } from '../styles/FileSystemStyles'
 
 const mapStateToProps = ({
   directory,
@@ -22,6 +22,25 @@ const mapStateToProps = ({
 
 const mapDispachToProps = dispatch =>
   bindActionCreators(actionCreators, dispatch)
+
+/* 
+Explanation: 
+This is a recursive component. It's job is to render all of the directories
+and sub-directories in an orderly fashion. Problem: all this folder nesting
+is represented by a flat (one level deep) object. Each folder is referenced
+by a key, and its contents (value) are an array of items, some of which may
+be folders themselves. When we want to know what is inside that nested 
+folder we look for the key that matches its id. 
+
+That setup informs how this component works. First, it looks at the key 
+'base' (root level), and maps over all its contents to display them. 
+Whenever one of those contents is a folder, we call the component again 
+with that id as `subFolderID`. This keeps happening until all levels are
+satisfied.
+
+In addition, there are style changes between root and nested levels that 
+need to be accounted for. For this we use the `inner` param. 
+*/
 
 const FileSystemContents = ({
   inner = false,
