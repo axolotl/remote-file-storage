@@ -13,7 +13,7 @@ import {
 import NewFile from '../icons/FileUpload'
 import NewFolder from '../icons/NewFolder'
 
-import InputField from './InputField'
+import InputHandler from './InputHandlerWrapper'
 
 const mapStateToProps = ({ inputFields }) => ({
   inputFields
@@ -39,7 +39,7 @@ const FileSystemHeader = ({ inputFields, addInputField, removeInputField }) => (
     </LI>
 
     {inputFields['base'] && (
-      <InputField
+      <InputHandler
         alignCenter
         id="base"
         type={inputFields['base']}

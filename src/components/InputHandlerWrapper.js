@@ -1,16 +1,16 @@
 import React, { Fragment } from 'react'
 import { LI, Option } from '../styles/FileSystemStyles'
-import InputFieldUploadFile from './InputFieldUploadFile'
-import InputFieldNewFolder from './InputFieldNewFolder'
+import InputHandlerUploadFile from './InputHandlerUploadFile'
+import InputHandlerNewFolder from './InputHandlerNewFolder'
 
 const InputField = ({ alignCenter, id, removeInputField, type }) => (
   <LI input alignCenter={alignCenter ? alignCenter : ''}>
-    {type === 'newfile' && <InputFieldUploadFile id={id} />}
+    {type === 'newfile' && <InputHandlerUploadFile id={id} />}
 
     {type === 'newfolder' && (
       <Fragment>
         <span>Enter name of new folder:</span>
-        <InputFieldNewFolder id={id} />
+        <InputHandlerNewFolder id={id} />
       </Fragment>
     )}
 

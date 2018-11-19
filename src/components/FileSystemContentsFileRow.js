@@ -1,5 +1,5 @@
 import React from 'react'
-import ItemOptions from './ItemOptions'
+import ItemOptions from './RowItemOptions'
 import { LI, Group } from '../styles/FileSystemStyles'
 import FileIcon from '../icons/File'
 

@@ -5,7 +5,7 @@ import * as actionCreators from '../actions'
 
 import FileRow from './FileSystemContentsFileRow'
 import FolderRow from './FileSystemContentsFolderRow'
-import InputField from './InputField'
+import InputHandler from './InputHandlerWrapper'
 import { UL, LI } from '../styles/FileSystemStyles'
 
 const mapStateToProps = ({
@@ -81,7 +81,7 @@ const FileSystemContents = ({
 
               {inputFields[item.id] && (
                 <UL inner>
-                  <InputField
+                  <InputHandler
                     id={item.id}
                     type={inputFields[item.id]}
                     removeInputField={removeInputField}

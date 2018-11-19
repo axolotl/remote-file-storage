@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import ItemOptions from './ItemOptions'
+import ItemOptions from './RowItemOptions'
 import { LI, Group, Options, Option } from '../styles/FileSystemStyles'
 import FolderIcon from '../icons/Folder'
 import OpenFolderIcon from '../icons/OpenFolder'
