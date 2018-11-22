@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { Route, withRouter } from 'react-router-dom'
 import { injectGlobal } from 'styled-components'
 import { connect } from 'react-redux'
 import { readItemsDB } from '../actions'
@@ -39,10 +40,17 @@ class App extends Component {
 
         <CenterContent>
           <ContainToWidth>
-            <UL inner={false}>
-              <FileSystemHeader />
-              <FileSystemContents />
-            </UL>
+            <Route exact path="/" render={props => <p>hello</p>} />
+
+            <Route
+              path="/files"
+              render={props => (
+                <UL {...props} inner={false}>
+                  <FileSystemHeader />
+                  <FileSystemContents />
+                </UL>
+              )}
+            />
           </ContainToWidth>
         </CenterContent>
       </Fragment>
@@ -50,7 +58,9 @@ class App extends Component {
   }
 }
 
-export default connect(
-  null,
-  { readItemsDB }
-)(App)
+export default withRouter(
+  connect(
+    null,
+    { readItemsDB }
+  )(App)
+)

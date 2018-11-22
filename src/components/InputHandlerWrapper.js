@@ -3,7 +3,7 @@ import { LI, Option } from '../styles/FileSystemStyles'
 import InputHandlerUploadFile from './InputHandlerUploadFile'
 import InputHandlerNewFolder from './InputHandlerNewFolder'
 
-const InputField = ({ alignCenter, id, removeInputField, type }) => (
+const Wrapper = ({ alignCenter, id, removeInputField, type }) => (
   <LI input alignCenter={alignCenter ? alignCenter : ''}>
     {type === 'newfile' && <InputHandlerUploadFile id={id} />}
 
@@ -18,4 +18,4 @@ const InputField = ({ alignCenter, id, removeInputField, type }) => (
   </LI>
 )
 
-export default InputField
+export default Wrapper
