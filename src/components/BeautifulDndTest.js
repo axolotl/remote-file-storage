@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
 
 const initialData = {
   tasks: {
@@ -16,6 +17,32 @@ const initialData = {
   columnOrder: ['column-1']
 }
 
+const Container = styled.div`
+  margin: 8px;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+`
+
+const Title = styled.div`
+  padding: 8px;
+`
+
+const TaskList = styled.div`
+  padding: 8px;
+`
+
+const TaskContainer = styled.div`
+  border: 1px solid lightgrey;
+  padding: 8px;
+  margin-bottom: 8px;
+`
+
+class Task extends Component {
+  render() {
+    return <TaskContainer>{this.props.task.content}</TaskContainer>
+  }
+}
+
 class Beautiful extends Component {
   state = initialData
 
@@ -26,7 +53,12 @@ class Beautiful extends Component {
       const column = columns[columnId]
       const tasks = column.tasks.map(id => this.state.tasks[id])
 
-      return column.title
+      return (
+        <Container>
+          <Title>{column.title}</Title>
+          <TaskList>{tasks.map(task => <Task task={task} />)}</TaskList>
+        </Container>
+      )
     })
   }
 }
