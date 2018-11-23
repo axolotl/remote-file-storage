@@ -14,6 +14,9 @@ import { UL } from '../styles/FileSystemStyles'
 import FileSystemHeader from './FileSystemHeader'
 import FileSystemContents from './FileSystemContents'
 
+// beautiful
+import BeautifulDndTest from './BeautifulDndTest'
+
 injectGlobal`
   html, body, #root {
     margin: 0;
@@ -40,7 +43,7 @@ class App extends Component {
 
         <CenterContent>
           <ContainToWidth>
-            <Route exact path="/" render={props => <p>hello</p>} />
+            <Route exact path="/" render={props => <BeautifulDndTest />} />
 
             <Route
               path="/files"
