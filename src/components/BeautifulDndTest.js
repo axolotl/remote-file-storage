@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 const initialData = {
   tasks: {
@@ -35,31 +36,63 @@ const TaskContainer = styled.div`
   border: 1px solid lightgrey;
   padding: 8px;
   margin-bottom: 8px;
+  border-radius: 2px;
+  background-color: white;
 `
 
 class Task extends Component {
   render() {
-    return <TaskContainer>{this.props.task.content}</TaskContainer>
+    return (
+      <Draggable draggableId={this.props.task.id} index={this.props.index}>
+        {provided => (
+          <TaskContainer
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            innerRef={provided.innerRef}
+          >
+            {this.props.task.content}
+          </TaskContainer>
+        )}
+      </Draggable>
+    )
   }
 }
 
 class Beautiful extends Component {
   state = initialData
 
+  onDragEnd = () => console.log('drag ended')
+
   render() {
-    const { columns, columnOrder } = this.state
+    const { columns, columnOrder, onDragEnd } = this.state
 
-    return columnOrder.map(columnId => {
-      const column = columns[columnId]
-      const tasks = column.tasks.map(id => this.state.tasks[id])
+    return (
+      <DragDropContext onDragEnd={() => onDragEnd}>
+        {columnOrder.map(columnId => {
+          const column = columns[columnId]
+          const tasks = column.tasks.map(id => this.state.tasks[id])
 
-      return (
-        <Container>
-          <Title>{column.title}</Title>
-          <TaskList>{tasks.map(task => <Task task={task} />)}</TaskList>
-        </Container>
-      )
-    })
+          return (
+            <Container>
+              <Title>{column.title}</Title>
+              <Droppable droppableId={column.id}>
+                {provided => (
+                  <TaskList
+                    innerRef={provided.innerRef}
+                    {...provided.droppableProps}
+                  >
+                    {tasks.map((task, index) => (
+                      <Task task={task} index={index} key={task.id} />
+                    ))}
+                    {provided.placeholder}
+                  </TaskList>
+                )}
+              </Droppable>
+            </Container>
+          )
+        })}
+      </DragDropContext>
+    )
   }
 }
 
