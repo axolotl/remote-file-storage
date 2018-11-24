@@ -4,13 +4,13 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 const initialData = {
   tasks: {
-    'task-1': { id: 1, content: 'first task' },
-    'task-2': { id: 2, content: 'second task' },
-    'task-3': { id: 3, content: 'third task' }
+    'task-1': { id: 'task-1', content: 'first task' },
+    'task-2': { id: 'task-2', content: 'second task' },
+    'task-3': { id: 'task-3', content: 'third task' }
   },
   columns: {
     'column-1': {
-      id: 1,
+      id: 'column-1',
       title: 'To do',
       tasks: ['task-1', 'task-2', 'task-3']
     }
@@ -61,19 +61,53 @@ class Task extends Component {
 class Beautiful extends Component {
   state = initialData
 
-  onDragEnd = () => console.log('drag ended')
+  onDragEnd = result => {
+    const { destination, source, draggableId } = result
+
+    if (!destination) {
+      return
+    }
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return
+    }
+
+    const column = this.state.columns[source.droppableId]
+    const newTaskIds = Array.from(column.tasks)
+    newTaskIds.splice(source.index, 1)
+    newTaskIds.splice(destination.index, 0, draggableId)
+
+    const newColumn = {
+      ...column,
+      tasks: newTaskIds
+    }
+
+    const newState = {
+      ...this.state,
+      columns: {
+        ...this.state.columns,
+        [newColumn.id]: newColumn
+      }
+    }
+
+    this.setState(newState)
+  }
 
   render() {
-    const { columns, columnOrder, onDragEnd } = this.state
+    const { columns, columnOrder } = this.state
+    const { onDragEnd } = this
 
     return (
-      <DragDropContext onDragEnd={() => onDragEnd}>
-        {columnOrder.map(columnId => {
+      <DragDropContext onDragEnd={onDragEnd}>
+        {columnOrder.map((columnId, i) => {
           const column = columns[columnId]
           const tasks = column.tasks.map(id => this.state.tasks[id])
 
           return (
-            <Container>
+            <Container key={i}>
               <Title>{column.title}</Title>
               <Droppable droppableId={column.id}>
                 {provided => (
