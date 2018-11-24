@@ -1,9 +1,10 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Route, withRouter } from 'react-router-dom'
 import { injectGlobal } from 'styled-components'
 import { connect } from 'react-redux'
-import { readItemsDB } from '../actions'
+import { DragDropContext } from 'react-beautiful-dnd'
 
+import { readItemsDB } from '../actions'
 import {
   CenterHeaderWithStyles,
   ContainToWidthWithStyles
@@ -31,9 +32,11 @@ class App extends Component {
     readItemsDB()
   }
 
+  onDragEnd = result => console.log(result)
+
   render() {
     return (
-      <Fragment>
+      <DragDropContext onDragEnd={this.onDragEnd}>
         <CenterHeaderWithStyles>
           <ContainToWidthWithStyles>
             <H1>RemoteFS</H1>
@@ -56,7 +59,7 @@ class App extends Component {
             />
           </ContainToWidth>
         </CenterContent>
-      </Fragment>
+      </DragDropContext>
     )
   }
 }

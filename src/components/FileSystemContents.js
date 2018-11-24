@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as actionCreators from '../actions'
+import { Droppable } from 'react-beautiful-dnd'
 
+import * as actionCreators from '../actions'
 import FileRow from './FileSystemContentsFileRow'
 import FolderRow from './FileSystemContentsFolderRow'
 import InputHandler from './InputHandlerWrapper'
@@ -54,65 +55,77 @@ const FileSystemContents = ({
   addInputField,
   removeInputField
 }) => (
-  <UL inner={inner}>
-    {directory[subFolderID] &&
-      directory[subFolderID].map((item, i) => (
-        <Fragment key={i}>
-          {item.type === 'file' && (
-            <FileRow
-              key={item.id}
-              {...item}
-              selected={selected}
-              selectItem={selectItem}
-              toggleFolder={toggleFolder}
-            />
-          )}
+  <Droppable droppableId={subFolderID}>
+    {provided => (
+      <UL
+        inner={inner}
+        innerRef={provided.innerRef}
+        {...provided.droppableProps}
+      >
+        {directory[subFolderID] &&
+          directory[subFolderID].map((item, i) => (
+            <Fragment key={i}>
+              {provided.placeholder}
 
-          {item.type === 'folder' && (
-            <Fragment key={item.id}>
-              <FolderRow
-                {...item}
-                selected={selected}
-                selectItem={selectItem}
-                toggleFolder={toggleFolder}
-                addInputField={addInputField}
-                openFolders={openFolders}
-              />
-
-              {inputFields[item.id] && (
-                <UL inner>
-                  <InputHandler
-                    id={item.id}
-                    type={inputFields[item.id]}
-                    removeInputField={removeInputField}
-                  />
-                </UL>
+              {item.type === 'file' && (
+                <FileRow
+                  key={item.id}
+                  {...item}
+                  selected={selected}
+                  selectItem={selectItem}
+                  toggleFolder={toggleFolder}
+                  index={i}
+                />
               )}
 
-              {openFolders.includes(item.id) &&
-                (directory[item.id] && directory[item.id].length > 0 ? (
-                  <FileSystemContents
-                    inner={true}
-                    directory={directory}
-                    toggleFolder={toggleFolder}
+              {item.type === 'folder' && (
+                <Fragment key={item.id}>
+                  <FolderRow
+                    {...item}
                     selected={selected}
                     selectItem={selectItem}
+                    toggleFolder={toggleFolder}
                     addInputField={addInputField}
-                    removeInputField={removeInputField}
-                    inputFields={inputFields}
                     openFolders={openFolders}
-                    subFolderID={item.id}
+                    index={i}
                   />
-                ) : (
-                  <UL inner={true}>
-                    <LI inactive>Folder is empty</LI>
-                  </UL>
-                ))}
+
+                  {inputFields[item.id] && (
+                    <UL inner>
+                      <InputHandler
+                        id={item.id}
+                        type={inputFields[item.id]}
+                        removeInputField={removeInputField}
+                      />
+                    </UL>
+                  )}
+
+                  {openFolders.includes(item.id) &&
+                    (directory[item.id] && directory[item.id].length > 0 ? (
+                      <FileSystemContents
+                        inner={true}
+                        directory={directory}
+                        toggleFolder={toggleFolder}
+                        selected={selected}
+                        selectItem={selectItem}
+                        addInputField={addInputField}
+                        removeInputField={removeInputField}
+                        inputFields={inputFields}
+                        openFolders={openFolders}
+                        subFolderID={item.id}
+                      />
+                    ) : (
+                      <UL inner={true}>
+                        <LI inactive>Folder is empty</LI>
+                      </UL>
+                    ))}
+                </Fragment>
+              )}
             </Fragment>
-          )}
-        </Fragment>
-      ))}
-  </UL>
+          ))}
+      </UL>
+    )}
+  </Droppable>
 )
 
 export default connect(
