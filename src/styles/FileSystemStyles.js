@@ -50,3 +50,7 @@ export const Option = styled.button`
     cursor: pointer;
   }
 `
+
+export const DragItem = styled.div`
+
+`
