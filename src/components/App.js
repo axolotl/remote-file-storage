@@ -18,6 +18,9 @@ import FileSystemContents from './FileSystemContents'
 // beautiful
 import BeautifulDndTest from './BeautifulDndTest'
 
+// sortable
+import SortableTreeTest from './SortableTreeTest'
+
 injectGlobal`
   html, body, #root {
     margin: 0;
@@ -46,10 +49,20 @@ class App extends Component {
 
         <CenterContent>
           <ContainToWidth>
-            <Route exact path="/" render={props => <BeautifulDndTest />} />
+            <Route
+              exact
+              path="/beautiful"
+              render={props => <BeautifulDndTest />}
+            />
+            <Route
+              exact
+              path="/sortable"
+              render={props => <SortableTreeTest />}
+            />
 
             <Route
-              path="/files"
+              path="/"
+              exact
               render={props => (
                 <UL {...props} inner={false}>
                   <FileSystemHeader />

@@ -44,10 +44,11 @@ need to be accounted for. For this we use the `inner` param.
 */
 
 const FileSystemContentsWrapper = () => (
-  <Droppable droppableId='hello'>
+  <Droppable droppableId="hello">
     {provided => (
       <DragItem innerRef={provided.innerRef} {...provided.droppableProps}>
         <FileSystemNew />
+        {provided.placeholder}
       </DragItem>
     )}
   </Droppable>
@@ -81,8 +82,6 @@ const FileSystemContents = ({
               {...provided.dragHandleProps}
               innerRef={provided.innerRef}
             >
-              {provided.placeholder}
-
               {item.type === 'file' && (
                 <FileRow
                   key={item.id}
@@ -150,5 +149,3 @@ const FileSystemNew = connect(
 )(FileSystemContents)
 
 export default FileSystemContentsWrapper
-
-
