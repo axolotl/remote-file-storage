@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Droppable, Draggable } from 'react-beautiful-dnd'
 
 import * as actionCreators from '../actions'
 import FileRow from './FileSystemContentsFileRow'
@@ -43,17 +42,6 @@ In addition, there are style changes between root and nested levels that
 need to be accounted for. For this we use the `inner` param. 
 */
 
-const FileSystemContentsWrapper = () => (
-  <Droppable droppableId="hello">
-    {provided => (
-      <DragItem innerRef={provided.innerRef} {...provided.droppableProps}>
-        <FileSystemNew />
-        {provided.placeholder}
-      </DragItem>
-    )}
-  </Droppable>
-)
-
 const FileSystemContents = ({
   inner = false,
   subFolderID = 'base',
@@ -66,86 +54,68 @@ const FileSystemContents = ({
   addInputField,
   removeInputField
 }) => (
-  // <Droppable droppableId={subFolderID} type={subFolderID}>
-  //   {provided => (
-  <UL
-    inner={inner}
-    // innerRef={provided.innerRef}
-    // {...provided.droppableProps}
-  >
+  <UL inner={inner}>
     {directory[subFolderID] &&
       directory[subFolderID].map((item, i) => (
-        <Draggable key={i} draggableId={item.id} index={i}>
-          {provided => (
-            <DragItem
-              {...provided.draggableProps}
-              {...provided.dragHandleProps}
-              innerRef={provided.innerRef}
-            >
-              {item.type === 'file' && (
-                <FileRow
-                  key={item.id}
-                  {...item}
-                  selected={selected}
-                  selectItem={selectItem}
-                  toggleFolder={toggleFolder}
-                />
+        <DragItem>
+          {item.type === 'file' && (
+            <FileRow
+              key={item.id}
+              {...item}
+              selected={selected}
+              selectItem={selectItem}
+              toggleFolder={toggleFolder}
+            />
+          )}
+
+          {item.type === 'folder' && (
+            <Fragment key={item.id}>
+              <FolderRow
+                {...item}
+                selected={selected}
+                selectItem={selectItem}
+                toggleFolder={toggleFolder}
+                addInputField={addInputField}
+                openFolders={openFolders}
+              />
+
+              {inputFields[item.id] && (
+                <UL inner>
+                  <InputHandler
+                    id={item.id}
+                    type={inputFields[item.id]}
+                    removeInputField={removeInputField}
+                  />
+                </UL>
               )}
 
-              {item.type === 'folder' && (
-                <Fragment key={item.id}>
-                  <FolderRow
-                    {...item}
+              {openFolders.includes(item.id) &&
+                (directory[item.id] && directory[item.id].length > 0 ? (
+                  <FileSystemContents
+                    inner={true}
+                    directory={directory}
+                    toggleFolder={toggleFolder}
                     selected={selected}
                     selectItem={selectItem}
-                    toggleFolder={toggleFolder}
                     addInputField={addInputField}
+                    removeInputField={removeInputField}
+                    inputFields={inputFields}
                     openFolders={openFolders}
+                    subFolderID={item.id}
                   />
-
-                  {inputFields[item.id] && (
-                    <UL inner>
-                      <InputHandler
-                        id={item.id}
-                        type={inputFields[item.id]}
-                        removeInputField={removeInputField}
-                      />
-                    </UL>
-                  )}
-
-                  {openFolders.includes(item.id) &&
-                    (directory[item.id] && directory[item.id].length > 0 ? (
-                      <FileSystemContents
-                        inner={true}
-                        directory={directory}
-                        toggleFolder={toggleFolder}
-                        selected={selected}
-                        selectItem={selectItem}
-                        addInputField={addInputField}
-                        removeInputField={removeInputField}
-                        inputFields={inputFields}
-                        openFolders={openFolders}
-                        subFolderID={item.id}
-                      />
-                    ) : (
-                      <UL inner={true}>
-                        <LI inactive>Folder is empty</LI>
-                      </UL>
-                    ))}
-                </Fragment>
-              )}
-            </DragItem>
+                ) : (
+                  <UL inner={true}>
+                    <LI inactive>Folder is empty</LI>
+                  </UL>
+                ))}
+            </Fragment>
           )}
-        </Draggable>
+        </DragItem>
       ))}
   </UL>
-  //   )}
-  // </Droppable>
 )
 
-const FileSystemNew = connect(
+export default connect(
   mapStateToProps,
   mapDispachToProps
 )(FileSystemContents)
-
-export default FileSystemContentsWrapper

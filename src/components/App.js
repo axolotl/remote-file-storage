@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Route, withRouter } from 'react-router-dom'
 import { injectGlobal } from 'styled-components'
 import { connect } from 'react-redux'
-import { DragDropContext } from 'react-beautiful-dnd'
 
 import { readItemsDB } from '../actions'
 import {
@@ -14,12 +13,6 @@ import { CenterContent, ContainToWidth } from '../styles/Containers'
 import { UL } from '../styles/FileSystemStyles'
 import FileSystemHeader from './FileSystemHeader'
 import FileSystemContents from './FileSystemContents'
-
-// beautiful
-import BeautifulDndTest from './BeautifulDndTest'
-
-// sortable
-import SortableTreeTest from './SortableTreeTest'
 
 injectGlobal`
   html, body, #root {
@@ -39,7 +32,7 @@ class App extends Component {
 
   render() {
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
+      <Fragment>
         <CenterHeaderWithStyles>
           <ContainToWidthWithStyles>
             <H1>RemoteFS</H1>
@@ -49,17 +42,6 @@ class App extends Component {
 
         <CenterContent>
           <ContainToWidth>
-            <Route
-              exact
-              path="/beautiful"
-              render={props => <BeautifulDndTest />}
-            />
-            <Route
-              exact
-              path="/sortable"
-              render={props => <SortableTreeTest />}
-            />
-
             <Route
               path="/"
               exact
@@ -72,7 +54,7 @@ class App extends Component {
             />
           </ContainToWidth>
         </CenterContent>
-      </DragDropContext>
+      </Fragment>
     )
   }
 }
