@@ -13,6 +13,7 @@ import { CenterContent, ContainToWidth } from '../styles/Containers'
 import { UL } from '../styles/FileSystemStyles'
 import FileSystemHeader from './FileSystemHeader'
 import FileSystemContents from './FileSystemContents'
+import Dashboard from './Dashboard'
 
 injectGlobal`
   html, body, #root {
@@ -36,7 +37,7 @@ class App extends Component {
         <CenterHeaderWithStyles>
           <ContainToWidthWithStyles>
             <H1>RemoteFS</H1>
-            <H3>A Project by Samuel Machat</H3>
+            <Dashboard />
           </ContainToWidthWithStyles>
         </CenterHeaderWithStyles>
 

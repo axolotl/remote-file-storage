@@ -6,5 +6,5 @@ export const CenterContent = styled.div`
 `
 
 export const ContainToWidth = styled.div`
-  width: 700px;
+  width: 900px;
 `
