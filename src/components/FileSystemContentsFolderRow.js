@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react'
-// import { Draggable } from 'react-beautiful-dnd'
 import ItemOptions from './RowItemOptions'
 import { LI, Group, Options, Option } from '../styles/FileSystemStyles'
 import FolderIcon from '../icons/Folder'

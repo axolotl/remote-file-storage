@@ -21,6 +21,14 @@ injectGlobal`
     padding: 0;
     height: 100%;
   }
+
+  html {
+    font-size: 62.5%
+  }
+
+  * { 
+    box-sizing: border-box;
+  }
 `
 
 class App extends Component {

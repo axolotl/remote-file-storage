@@ -2,33 +2,38 @@ import styled from 'styled-components'
 
 export const UL = styled.ul`
   list-style: none;
-  padding-left: ${({ inner }) => inner ? '20px' : '0'};
+  padding-left: ${({ inner }) => (inner ? '20px' : '0')};
 `
 
 export const LI = styled.li`
   display: flex;
   align-items: center;
   justify-content: ${({ input, alignCenter }) => {
-    if (input && alignCenter) { return 'center' }
-    else if (input) { return 'flex-start' }
-    else { return 'space-between' }
+    if (input && alignCenter) {
+      return 'center'
+    } else if (input) {
+      return 'flex-start'
+    } else {
+      return 'space-between'
+    }
   }};
 
   padding-right: 3px;
-  color: ${({ inactive }) => inactive ? 'grey' : 'black'};
-  margin-left: ${({ header }) => header ? '5px' : 0};
-  background-color: ${({ selected }) => selected ? '#eaeaea' : ''};
+  color: ${({ inactive }) => (inactive ? 'grey' : 'black')};
+  margin-left: ${({ header }) => (header ? '5px' : 0)};
+  background-color: ${({ selected }) => (selected ? '#eaeaea' : '')};
   font-family: 'Questrial', sans-serif;
+  font-size: 1.6rem;
 `
 
 export const HorizonalRule = styled.li`
-  border: .5px solid black;
+  border: 0.5px solid black;
   margin: 5px;
 `
 export const Group = styled.span`
   display: flex;
   align-items: center;
-  cursor: ${({ primary }) => primary ? 'pointer' : ''}
+  cursor: ${({ primary }) => (primary ? 'pointer' : '')};
 `
 
 export const Options = styled.span`
@@ -37,7 +42,7 @@ export const Options = styled.span`
 
 export const Option = styled.button`
   font-family: 'Questrial', sans-serif;
-  font-size: 14px;
+  font-size: 1.4rem;
   color: #c90000;
   margin-left: 5px;
   padding: 0;
@@ -51,6 +56,4 @@ export const Option = styled.button`
   }
 `
 
-export const DragItem = styled.div`
-
-`
+export const DragItem = styled.div``
