@@ -57,7 +57,7 @@ const FileSystemContents = ({
   <UL inner={inner}>
     {directory[subFolderID] &&
       directory[subFolderID].map((item, i) => (
-        <DragItem>
+        <DragItem key={i}>
           {item.type === 'file' && (
             <FileRow
               key={item.id}

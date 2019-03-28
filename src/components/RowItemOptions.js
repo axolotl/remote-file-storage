@@ -63,25 +63,23 @@ class ItemOptions extends Component {
 
     return (
       <Options>
-        {groupType === 'file' &&
-          option === '' && (
-            <Fragment>
-              <Option onClick={() => handleDownload(id, name)}>Download</Option>
-              <Option onClick={() => changeOption('rename')}>Rename</Option>
-              <Option onClick={() => changeOption('delete')}>Delete</Option>
-            </Fragment>
-          )}
+        {groupType === 'file' && option === '' && (
+          <Fragment>
+            <Option onClick={() => handleDownload(id, name)}>Download</Option>
+            <Option onClick={() => changeOption('rename')}>Rename</Option>
+            <Option onClick={() => changeOption('delete')}>Delete</Option>
+          </Fragment>
+        )}
 
-        {groupType === 'folder' &&
-          option === '' && (
-            <Fragment>
-              <Option onClick={() => toggleDir(id)}>
-                {open ? 'Close' : 'Open'}
-              </Option>
-              <Option onClick={() => changeOption('rename')}>Rename</Option>
-              <Option onClick={() => changeOption('delete')}>Delete</Option>
-            </Fragment>
-          )}
+        {groupType === 'folder' && option === '' && (
+          <Fragment>
+            <Option onClick={() => toggleDir(id)}>
+              {open ? 'Close' : 'Open'}
+            </Option>
+            <Option onClick={() => changeOption('rename')}>Rename</Option>
+            <Option onClick={() => changeOption('delete')}>Delete</Option>
+          </Fragment>
+        )}
 
         {option === 'rename' && (
           <div style={{ display: 'flex' }}>

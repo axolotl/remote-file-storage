@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { saveAs } from 'file-saver'
 
+const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:8000'
+
 export const downloadFile = (id, name) => dispatch => {
   // Server will send file as a blob. We need to specify this so that
   // axios knows how to handle it. Then we use `saveAs` from the
@@ -10,7 +12,7 @@ export const downloadFile = (id, name) => dispatch => {
   // content-disposition header.
 
   axios({
-    url: `/api/files/${id}`,
+    url: `${apiUrl}/api/files/${id}`,
     method: 'GET',
     responseType: 'blob' // important
   })
