@@ -45,7 +45,7 @@ class App extends Component {
         <CenterHeaderWithStyles>
           <ContainToWidthWithStyles>
             <H1>RemoteFS</H1>
-            <Dashboard />
+            {/* <Dashboard /> */}
           </ContainToWidthWithStyles>
         </CenterHeaderWithStyles>
 
