@@ -19,8 +19,9 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "start": "node /server/index.js",
+    "start": "node server/index.js",
     "dev": "concurrently \"yarn --cwd ./client react-scripts start\" \"nodemon server\"",
-    "install_deps": "yarn install && yarn --cwd ./client install"
+    "install_deps": "yarn install && yarn --cwd ./client install",
+    "run_migrations": "cd ./server && npx sequelize db:migrate && cd .."
   }
 }
