@@ -30,6 +30,9 @@ module.exports = {
           locationAWS: {
             type: Sequelize.STRING
           },
+          size: {
+            type: Sequelize.INTEGER
+          },
           createdAt: {
             allowNull: false,
             type: Sequelize.DATE

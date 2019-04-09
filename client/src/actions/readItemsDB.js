@@ -17,7 +17,10 @@ export const readItemsDB = id => dispatch => {
   if (!id) {
     axios
       .get(`${apiUrl}/api/folders/`)
-      .then(res => dispatch(populateInitialState(res.data)))
+      .then(res => {
+        console.log(res.data)
+        dispatch(populateInitialState(res.data))
+      })
       .catch(error => console.log(error))
   } else {
     axios

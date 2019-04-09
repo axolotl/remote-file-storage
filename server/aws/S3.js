@@ -21,6 +21,7 @@ module.exports = {
     const form = new multiparty.Form()
     form.parse(req, (error, fields, files) => {
       if (error) throw new Error(error)
+      console.log(files)
 
       const filePath = files.file[0].path
       const buffer = fs.readFileSync(filePath)
@@ -37,12 +38,14 @@ module.exports = {
         }
 
         if (data) {
+          console.log(data)
           console.log('Uploaded in:', data.Location)
           req.locationAWS = data.Key
+          req.size = files.file[0].size
 
           req.body = {
             name: fields.name[0],
-            belongsTo: fields.belongsTo[0],
+            belongsTo: fields.belongsTo[0]
           }
 
           next()
@@ -69,7 +72,7 @@ module.exports = {
         res.send(data.Body)
       }
     })
-  }, 
+  },
 
   delete(req, res, next) {
     // handle file deletion on S3 here
