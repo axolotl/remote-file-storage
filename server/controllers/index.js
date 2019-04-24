@@ -1,4 +1,4 @@
-const creatFolder = require('./createFolder')
+const createFolder = require('./createFolder')
 const uploadFile = require('./uploadFile')
 const rename = require('./rename')
 const destroy = require('./destroy')
@@ -7,7 +7,7 @@ const downloadFile = require('./downloadFile')
 const getLocationAWS = require('./getLocationAWS')
 
 module.exports = {
-  creatFolder,
+  createFolder,
   uploadFile,
   rename,
   destroy,
