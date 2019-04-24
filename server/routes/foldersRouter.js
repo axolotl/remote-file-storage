@@ -1,12 +1,15 @@
 const express = require('express')
-const itemsController = require('../controllers').items
+const controllers = require('../controllers')
 
 const router = express.Router()
 
-router.get('/', itemsController.list)
-router.get('/:id', itemsController.list)
-router.post('/', itemsController.createFolder)
-router.put('/:id', itemsController.rename)
-router.delete('/:id', itemsController.destroy)
+// console.log(controllers.creatFolder())
+// console.log(JSON.stringify(controllers.creatFolder()))
+
+router.get('/', controllers.list)
+router.get('/:id', controllers.list)
+router.post('/', (req, res) => controllers.createFolder(req, res))
+router.put('/:id', controllers.rename)
+router.delete('/:id', controllers.destroy)
 
 module.exports = router
