@@ -21,7 +21,6 @@ module.exports = {
     const form = new multiparty.Form()
     form.parse(req, (error, fields, files) => {
       if (error) throw new Error(error)
-      console.log(files)
 
       const filePath = files.file[0].path
       const buffer = fs.readFileSync(filePath)
@@ -38,8 +37,6 @@ module.exports = {
         }
 
         if (data) {
-          console.log(data)
-          console.log('Uploaded in:', data.Location)
           req.locationAWS = data.Key
           req.size = files.file[0].size
 
@@ -55,8 +52,6 @@ module.exports = {
   },
 
   download(req, res, next) {
-    console.log(req.body)
-
     const params = {
       Bucket: bucketName,
       Key: req.locationAWS
@@ -68,7 +63,6 @@ module.exports = {
       }
 
       if (data) {
-        console.log(data)
         res.send(data.Body)
       }
     })
