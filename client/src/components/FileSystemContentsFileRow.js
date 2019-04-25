@@ -2,14 +2,7 @@ import React from 'react'
 import ItemOptions from './RowItemOptions'
 import { LI, Group } from '../styles/FileSystemStyles'
 import FileIcon from '../icons/File'
-
-const formatSize = size => {
-  // convert to kilobytes
-
-  // grab number of kilobytes
-  let kb = Math.round((size / 1024) * 100) / 100
-  return `${kb} kb`
-}
+import formatFileSize from '../utils/formatFileSize'
 
 const FileSystemContentsFileRow = ({
   id,
@@ -36,7 +29,7 @@ const FileSystemContentsFileRow = ({
         />
       )}
     </Group>
-    <Group>never | {formatSize(size)}</Group>
+    <Group>never | {formatFileSize(size)}</Group>
   </LI>
 )
 
