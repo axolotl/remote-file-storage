@@ -3,6 +3,7 @@ import ItemOptions from './RowItemOptions'
 import { LI, Group } from '../styles/FileSystemStyles'
 import FileIcon from '../icons/File'
 import formatFileSize from '../utils/formatFileSize'
+import formatDate from '../utils/formatDate'
 
 const FileSystemContentsFileRow = ({
   id,
@@ -12,7 +13,7 @@ const FileSystemContentsFileRow = ({
   selected,
   selectItem,
   size,
-  toggleFolder
+  updatedAt
 }) => (
   // selected expression will be true or false which will determine styling
   <LI selected={id === selected} onClick={() => selectItem(id)}>
@@ -29,7 +30,9 @@ const FileSystemContentsFileRow = ({
         />
       )}
     </Group>
-    <Group>never | {formatFileSize(size)}</Group>
+    <Group>
+      {formatDate(updatedAt)} | {formatFileSize(size)}
+    </Group>
   </LI>
 )
 

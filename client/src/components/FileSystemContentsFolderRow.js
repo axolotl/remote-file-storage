@@ -5,6 +5,8 @@ import FolderIcon from '../icons/Folder'
 import OpenFolderIcon from '../icons/OpenFolder'
 import NewFileIcon from '../icons/FileUpload'
 import NewFolderIcon from '../icons/NewFolder'
+import formatFileSize from '../utils/formatFileSize'
+import formatDate from '../utils/formatDate'
 
 const FileSystemContentsFolderRow = ({
   id,
@@ -15,7 +17,9 @@ const FileSystemContentsFolderRow = ({
   selectItem,
   toggleFolder,
   addInputField,
-  openFolders
+  openFolders,
+  size,
+  updatedAt
 }) => {
   // several conditions hinge on this evaluating true or false
   const rowSelected = id === selected
@@ -55,7 +59,9 @@ const FileSystemContentsFolderRow = ({
           </Fragment>
         )}
       </Group>
-      <Group>never | 0 mb</Group>
+      <Group>
+        {formatDate(updatedAt)}| {formatFileSize(size)}
+      </Group>
     </LI>
   )
 }
