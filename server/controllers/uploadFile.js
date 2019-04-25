@@ -15,10 +15,17 @@ async function uploadFile(req, res) {
     const update_recursively = item => {
       Item.findById(item).then(item => {
         if (item) {
-          item.update({
-            size: (item.size += req.size)
-          })
-          update_recursively(item.belongsTo)
+          item
+            .update({
+              size: (item.size += req.size)
+            })
+            .then(() => {
+              // handle bluebird yelling about unreturned promise
+              return null
+            })
+
+          // only update the next level if that level has an id
+          item.belongsTo && update_recursively(item.belongsTo)
         }
       })
     }
