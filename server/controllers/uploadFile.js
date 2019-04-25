@@ -30,7 +30,7 @@ async function uploadFile(req, res) {
       })
     }
 
-    await update_recursively(req.body.belongsTo)
+    req.body.belongsTo && update_recursively(req.body.belongsTo)
 
     res.status(200).send(item)
   } catch (error) {
